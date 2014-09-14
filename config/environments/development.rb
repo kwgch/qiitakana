@@ -34,4 +34,19 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.default_url_options = { host: 'sample-app-121858.apne1.nitrousbox.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: '2351986ae90761010',
+    password: '86fc5b3d67a3d0',
+    address: 'mailtrap.io',
+    domain: 'mailtrap.io',
+    port: '2525',
+    authentication: :cram_md5,
+    enable_starttls_auto: true
+  }
+  
 end
+
+BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
