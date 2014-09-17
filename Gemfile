@@ -45,4 +45,5 @@ group :development do
   gem 'erb2haml'
   gem 'quiet_assets'
   gem 'binding_of_caller'
+  gem 'pry-byebug'
 end

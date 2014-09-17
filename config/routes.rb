@@ -1,29 +1,22 @@
 Rails.application.routes.draw do
-  
+
+  root 'home#index'
   get 'home/index'
 
-#   devise_for :users
+  resources :user do
+    resources :posts do
+      resources :comments
+    end 
+  end
   
-  resources :posts do
-    resources :comments
-  end 
+  devise_for :users, controllers: { omniauth_callbacks: "auth" }
   
-  root 'posts#index'
-  get 'posts/index'
-
-#   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  devise_for :users, :controllers => { :omniauth_callbacks => "auth" }
-
-  
-#   devise_scope :user do
-#     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-#   end
-  
-#   get 'user/auth/:provider/callback' => 'auth#create'
-  delete 'user/auth/destroy/:provider' => 'auth#destroy', as: :destroy_connection
-  
-  #match "posts/index", :as => :user_root # ログイン後の遷移パス
-  
+  devise_scope :user do 
+    get 'auth/:provider/callback', to: 'auth#create'
+    delete 'auth/destroy/:provider', to: 'auth#destroy', as: :destroy_connection
+#     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+  end
+    
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

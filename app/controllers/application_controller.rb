@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :provider, :uid) }
   end
       
+  # model から sessionを参照可能にする
   def _set_current_session
     accessor = instance_variable_get(:@_request)
     ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})

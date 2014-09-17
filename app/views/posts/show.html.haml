@@ -18,13 +18,13 @@
       \:
   %dd= @post.publish_on
 = link_to t('.back', :default => t("helpers.links.back")), |
-  posts_path, :class => 'btn btn-default'                  |
+  user_posts_path(current_user), :class => 'btn btn-default'                  |
 -#
 = link_to t('.edit', :default => t("helpers.links.edit")), |
-  edit_post_path(@post), :class => 'btn btn-default'       |
+  edit_user_post_path(current_user, @post), :class => 'btn btn-default'       |
 -#
 = link_to t('.destroy', :default => t("helpers.links.destroy")),                                               |
-  post_path(@post),                                                                                            |
+  user_posts_path(current_user, @post),                                                                                            |
   :method => 'delete',                                                                                         |
   :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, |
   :class => 'btn btn-danger'                                                                                   |
@@ -33,7 +33,7 @@
 %br
 -# simple_form_for @post, wrapper: "vertical_form", :html => { :class => 'form-vertical' } do |f|
 <div>
-= simple_form_for @post do |f|
+= simple_form_for [current_user, @post] do |f|
   = f.fields_for :comments, wrapper: "horizontal_form", :html => { :class => 'form-horizontal' } do |c|
     = "</div><div class='form-inline'>".html_safe if c.options[:child_index].even?
     = c.input :body, label: c.options[:child_index]+1, input_wrapper_html: { class: "col-xs-3" }   
