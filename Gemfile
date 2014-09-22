@@ -19,18 +19,21 @@ gem 'omniauth-twitter'
 gem "figaro"
 gem 'haml'
 gem "font-awesome-rails"
+gem 'friendly_id' # TODO
+# gem 'acts-as-taggable-on'
+
 
 group :development, :test do
   gem 'spring'
+  gem 'rspec-rails'
+  gem "factory_girl_rails"
 end
 
 group :test do
-  gem 'factory_girl_rails'
 	gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rspec-collection_matchers'
   gem 'spring-commands-rspec'

@@ -3,11 +3,9 @@ class PostsController < ApplicationController
   before_action :set_user
   before_action :correct_user, only: [:update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+
   
   def index
-    
-#     @posts = Post.all
-#     @posts = current_user.posts.all
     @posts = @user.posts.all
   end
 
@@ -16,24 +14,22 @@ class PostsController < ApplicationController
   end
 
   def new
-#     @post = Post.new
     @post = current_user.posts.build
+    @post.tags.build # これ！
   end
 
   def edit
+    @post.tags.build # これ！
   end
 
   def create
-#     @post = Post.new(post_params)
     @post = current_user.posts.build(post_params)
 
     respond_to do |format|
       if @post.save
         format.html { redirect_to [current_user, @post], notice: 'Post was successfully created.' }
-#         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
-#         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,7 +55,6 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
 #       @post = current_user.posts.find(params[:id])
@@ -67,12 +62,14 @@ class PostsController < ApplicationController
 
   def set_user
     @user = User.find_first_by_auth_conditions(login: params[:user_id])
+#     binding.pry
+    raise ActiveRecord::RecordNotFound if @user.blank?
   end
   
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
 #             params.require(:post).permit(:id, posts_attributes:[:id, :title, :body, :publish_on, comments_attributes: [:id, :post_id, :body, :_destroy]])
-      params.require(:post).permit(:title, :body, :publish_on, comments_attributes: [:id, :post_id, :body, :_destroy])
+      params.require(:post).permit(:title, :body, :publish_on, :tag_list, tags_attributes: [:id, :name], comments_attributes: [:id, :post_id, :body, :_destroy])
     end
   
   def correct_user

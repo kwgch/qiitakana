@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :user do
     resources :posts do
       resources :comments
+      resources :taggings
     end 
   end
   
@@ -71,4 +72,8 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+#   get  '*not_found' => 'application#routing_error'
+#   post '*not_found' => 'application#routing_error'
+  match '*not_found' => 'home#index', via: :all
 end

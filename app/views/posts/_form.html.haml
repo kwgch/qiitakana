@@ -1,6 +1,19 @@
-= simple_form_for [current_user, @post], wrapper: "horizontal_form", html: { class: 'form-horizontal' } do |f|
-  = f.input :title, input_wrapper_html: { class: "col-xs-2" }
-  = f.input :body, input_wrapper_html: { class: "col-xs-2" }
-  = f.button :submit, class: 'btn-primary'
-  = link_to t('.cancel', default: t("helpers.links.cancel")), |
-    user_posts_path, class: 'btn btn-default'                      |
+- model_class = Post
+= simple_form_for [current_user, @post]  do |f|
+
+  %p
+    = f.input :title, label: false, placeholder: 'タイトル'
+
+  .form-inline
+    = f.fields_for :tags, wrapper: "horizontal_form", html: { class: 'form-horizontal' } do |t|
+      = "</div><br><div class='form-inline'>".html_safe if t.options[:child_index].even?
+      = t.input :name, label: false, input_wrapper_html: { class: "col-xs-4" }, placeholder: 'タグ'
+
+  %p
+    = f.input :markdown, label: false, placeholder: 'Markdown', input_html: {rows: 10}
+    = f.input :body, label: false, placeholder: 'プレビュー', input_html: {rows: 10, readonly: true}
+  
+  %p.text-right
+    = f.button :submit, class: 'btn-primary'
+    = link_to t('.cancel', default: t("helpers.links.cancel")), |
+      user_posts_path, class: 'btn btn-default'                      |

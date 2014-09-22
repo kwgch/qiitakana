@@ -14,9 +14,11 @@
   %dd= @post.body
   %dt
     %strong
-      = model_class.human_attribute_name(:publish_on)
+      = model_class.human_attribute_name(:tags)
       \:
-  %dd= @post.publish_on
+  //%dd= @post.tag_list.join(", ")
+  %dd= @post.tag_list
+  
 = link_to t('.back', :default => t("helpers.links.back")), |
   user_posts_path(current_user), :class => 'btn btn-default'                  |
 -#
@@ -34,7 +36,7 @@
 -# simple_form_for @post, wrapper: "vertical_form", :html => { :class => 'form-vertical' } do |f|
 <div>
 = simple_form_for [current_user, @post] do |f|
-  = f.fields_for :comments, wrapper: "horizontal_form", :html => { :class => 'form-horizontal' } do |c|
+  = f.fields_for :comments, wrapper: "horizontal_form", html: { class: 'form-horizontal' } do |c|
     = "</div><div class='form-inline'>".html_safe if c.options[:child_index].even?
     = c.input :body, label: c.options[:child_index]+1, input_wrapper_html: { class: "col-xs-3" }   
   = f.button :submit, :class => 'btn-primary'
