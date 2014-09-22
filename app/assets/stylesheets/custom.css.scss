@@ -56,3 +56,21 @@ $colHighlight   : #27ae60;
 .block {
   display: inline-block;
 }
+
+@mixin min-height($val) {
+    min-height:$val;
+    height:auto !important;
+    height:$val;
+}
+
+.bs-example {
+  @include min-height(200px);
+  padding: 10px;
+  background-color: #fff;
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px;
+  border-radius: 4px 4px 0 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

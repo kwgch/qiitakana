@@ -21,6 +21,8 @@ gem 'haml'
 gem "font-awesome-rails"
 gem 'friendly_id' # TODO
 # gem 'acts-as-taggable-on'
+gem 'redcarpet'
+gem 'github-markup'
 
 
 group :development, :test do

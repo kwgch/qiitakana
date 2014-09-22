@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :tags , reject_if: :reject_tags
 #   acts_as_taggable # Alias for acts_as_taggable_on :tags
 
+  before_save :markup
+  
   def self.tagged_with(name)
     Tag.find_by_name!(name).posts
   end
@@ -37,5 +39,10 @@ class Post < ActiveRecord::Base
   
   def reject_tags(attributed)
     attributed['name'].blank?
+  end
+  
+  def markup
+    markdown_engine = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    self.body = markdown_engine.render(self.markdown)
   end
 end
