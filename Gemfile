@@ -22,8 +22,8 @@ gem "font-awesome-rails"
 gem 'friendly_id' # TODO
 # gem 'acts-as-taggable-on'
 gem 'redcarpet'
-gem 'github-markup'
-
+# gem 'github-markup'
+gem 'record_with_operator'
 
 group :development, :test do
   gem 'spring'

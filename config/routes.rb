@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :user do
-    resources :posts do
-      resources :comments
-      resources :taggings
-    end 
+    resources :posts
   end
   
   devise_for :users, controllers: { omniauth_callbacks: "auth" }
@@ -17,7 +14,11 @@ Rails.application.routes.draw do
     delete 'auth/destroy/:provider', to: 'auth#destroy', as: :destroy_connection
 #     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
-    
+  
+  get 'tags/:tag', to: 'posts#index', as: :tag
+  
+#   get ':suer', to: 'posts#index', as: :tag
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -75,5 +76,5 @@ Rails.application.routes.draw do
   
 #   get  '*not_found' => 'application#routing_error'
 #   post '*not_found' => 'application#routing_error'
-  match '*not_found' => 'home#index', via: :all
+#   match '*not_found' => 'home#index', via: :all
 end

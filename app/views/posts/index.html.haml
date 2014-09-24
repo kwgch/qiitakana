@@ -1,35 +1,16 @@
 - model_class = Post
 .page-header
   %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:title)
-      %th= model_class.human_attribute_name(:body)
-      %th= model_class.human_attribute_name(:publish_on)
-      %th= model_class.human_attribute_name(:created_at)
-      %th= t '.actions', :default => t("helpers.actions")
+%table.table
+
   %tbody
-    - @posts.each do |post|
+    - @posts.try :each do |post|
       %tr
-        %td= link_to post.id, user_post_path(current_user, post)
-        %td= post.title
-        %td= post.body
-        %td= post.publish_on
-        %td= l post.created_at
-        %td
-          = link_to t('.show', :default => t("helpers.links.show")), |
-            [current_user, post], :class => 'btn btn-default btn-xs' 
-          -#
-          = link_to t('.edit', :default => t("helpers.links.edit")), |
-            edit_user_post_path(current_user, post), :class => 'btn btn-default btn-xs' 
-          -#
-          = link_to t('.destroy', :default => t("helpers.links.destroy")),                                               |
-            user_post_path(current_user, post),                                                                        |
-            :method => :delete,                                                                                          |
-            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, |
-            :class => 'btn btn-xs btn-danger'                                                                            
-= link_to t('.new', :default => t("helpers.links.new")), |
-  new_user_post_path,                                         |
-  :class => 'btn btn-primary'                            |
+        %td        
+          //= link_to(current_user.username, user_posts_path(current_user)) + "が#{ date_format post }に投稿"
+          = user_link post
+          %br
+          //%b= link_to post.title, [current_user, post]
+          %h4= post_link post
+          %ul.tags= tags_link post
+          //= post.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(' ').html_safe

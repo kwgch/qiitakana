@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   # Set a filter that is invoked on every request
   before_filter :_set_current_session
+  before_action :set_operator
   
   # 例外ハンドル
   if !Rails.env.development?
@@ -41,7 +42,13 @@ class ApplicationController < ActionController::Base
   # model から sessionを参照可能にする
   def _set_current_session
     accessor = instance_variable_get(:@_request)
-    ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})
+    ActiveRecord::Base.send(:define_method, "session", proc { accessor.session })
+  end
+    
+  def set_operator
+#     ActiveRecord::Base.send(:define_method, "get_current_user", proc { current_user })
+#     binding.pry          # Execution will stop here.
+    RecordWithOperator.operator = current_user
   end
     
   protected
