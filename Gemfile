@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.5'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -26,6 +25,7 @@ gem 'redcarpet'
 gem 'record_with_operator'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'spring'
   gem 'rspec-rails'
   gem "factory_girl_rails"
@@ -51,4 +51,9 @@ group :development do
   gem 'quiet_assets'
   gem 'binding_of_caller'
   gem 'pry-byebug'
+end
+
+group :production do
+  gem 'pg', '= 0.17.1'
+  gem 'rails_12factor', '= 0.0.2'
 end

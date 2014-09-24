@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   
-  def index    
+  def index
     if params[:tag]
-      @posts = @user.posts.tagged_with(params[:tag])
+      @posts = Post.tagged_with(params[:tag])
     else
       @posts = @user.posts.all
     end

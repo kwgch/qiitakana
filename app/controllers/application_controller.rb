@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   # Set a filter that is invoked on every request
-  before_filter :_set_current_session
+  before_action :_set_current_session
   before_action :set_operator
   
   # 例外ハンドル
