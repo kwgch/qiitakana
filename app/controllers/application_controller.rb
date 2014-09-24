@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   
   # 例外ハンドル
   if !Rails.env.development?
-    binding.pry
+#     binding.pry
     rescue_from Exception,                        with: :render_500
     rescue_from ActiveRecord::RecordNotFound,     with: :render_404
     rescue_from ActionController::RoutingError,   with: :render_404
