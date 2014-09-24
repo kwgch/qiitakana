@@ -1,16 +1,29 @@
-- model_class = Post
-.page-header
-  %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
+%p
+  -if @tag
+    %h1= @tag.name
+    %table.table-striped.table-bordered
+      %tbody
+        %tr
+          %td
+            %h3=@tag.posts.length
+            投稿
+          %td
+            %h3="xx"
+            フォロー
+          %td
+            ="#{ @tag.name }に関する情報が集まっています。現在#{ @tag.posts.length }件の投稿があります。 またxx人のユーザーが#{ @tag.name }タグをフォローしています。"
+  -unless @tag
+    %h1= current_user.username
+    .text-right= link_to 'フォロー', user_posts_path, class: 'btn btn-default'
+    
+    
 %table.table
-
   %tbody
     - @posts.try :each do |post|
       %tr
         %td        
-          //= link_to(current_user.username, user_posts_path(current_user)) + "が#{ date_format post }に投稿"
           = user_link post
           %br
-          //%b= link_to post.title, [current_user, post]
-          %h4= post_link post
+          %h4
+            %b= post_link post
           %ul.tags= tags_link post
-          //= post.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(' ').html_safe

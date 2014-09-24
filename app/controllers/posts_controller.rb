@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   def index
     if params[:tag]
       @posts = Post.tagged_with(params[:tag])
+      @tag = Tag.find_by(name: params[:tag])
     else
       @posts = @user.posts.all
     end

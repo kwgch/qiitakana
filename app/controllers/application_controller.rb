@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
   
   # model から sessionを参照可能にする
   def _set_current_session
+#     binding.pry
     accessor = instance_variable_get(:@_request)
     ActiveRecord::Base.send(:define_method, "session", proc { accessor.session })
   end
