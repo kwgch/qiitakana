@@ -23,12 +23,15 @@ gem 'friendly_id' # TODO
 gem 'redcarpet'
 # gem 'github-markup'
 gem 'record_with_operator'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'sqlite3'
   gem 'spring'
   gem 'rspec-rails'
   gem "factory_girl_rails"
+  gem 'did_you_mean'
 end
 
 group :test do

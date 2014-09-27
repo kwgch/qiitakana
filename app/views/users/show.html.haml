@@ -1,0 +1,20 @@
+#user-info-box
+  .container
+    .row
+      %span.span12
+        = gravatar_for @user
+        .outline
+          .first-line
+            %h1= @user.username
+          .second-line
+            %span.count= "#{@user.posts.count}"
+            %span.unit= " Contribution"
+            = render 'follow_form' if signed_in?
+  
+%section
+  = render 'shared/stats'
+
+  - if @user.posts.any?
+    %ul.posts
+      = render @posts
+    = will_paginate @posts

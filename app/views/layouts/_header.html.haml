@@ -1,0 +1,15 @@
+.navbar.navbar-default.navbar-static-top
+  .container-fluid
+    .navbar-header
+      %a.navbar-brand{href: "/"}
+        Qiitakana?
+    .navbar-header.navbar-right
+      %ul.nav.navbar-nav
+        -if user_signed_in?
+          %li.dropdown#menu1
+            %a.dropdown-toggle{href: '/', 'data-toggle' => 'dropdown'}
+              = current_user.username
+              %b.caret
+              %ul.dropdown-menu
+                %li= account_config_link
+                %li= signout_link

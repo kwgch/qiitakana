@@ -6,3 +6,22 @@
     = f.button :submit, "ログイン"
   %br/
 = render "devise/shared/links"
+
+:javascript
+    $(function() {
+        $('form').bootstrapValidator({
+            live: 'enabled',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+              'user[login]': {
+                  validators: {
+                      notEmpty: { message: '必須項目です' }
+                  }
+              }
+            }
+        });
+    });

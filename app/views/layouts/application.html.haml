@@ -26,23 +26,10 @@
     / Size should be 32 x 32 pixels
     = favicon_link_tag 'favicon.png', rel: 'shortcut icon'
     = javascript_include_tag "application"
+    %script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js")
+    %link{rel: :stylesheet, type: :"text/css", href: '//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css'}
   %body
-    .navbar.navbar-default.navbar-static-top
-      .container-fluid
-        .navbar-header
-          %a.navbar-brand{href: "/"}
-            Qiitakana?
-        .navbar-header.navbar-right
-          %ul.nav.navbar-nav
-            -if user_signed_in?
-              %li.dropdown#menu1
-                %a.dropdown-toggle{href: '/', 'data-toggle' => 'dropdown'}
-                  = current_user.username
-                  %b.caret
-                  %ul.dropdown-menu
-                    %li= account_config_link
-                    %li= signout_link
-                    
+    =render 'layouts/header' 
     .container
       .row
         .col-lg-9

@@ -2,10 +2,20 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'home/index'
-
-  resources :user do
+  get 'tags/:tag', to: 'posts#index', as: :tag
+  
+#   resources :user do
+#     resources :posts
+#   end
+  
+  resources :users, only: [:show] do
     resources :posts
+    member do
+      get :following, :followers
+    end
   end
+  
+  resources :relationships, only: [:create, :destroy]
   
   devise_for :users, controllers: { omniauth_callbacks: "auth" }
   
@@ -15,7 +25,7 @@ Rails.application.routes.draw do
 #     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   
-  get 'tags/:tag', to: 'posts#index', as: :tag
+
   
 #   get ':suer', to: 'posts#index', as: :tag
   

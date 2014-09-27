@@ -1,0 +1,49 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#user-info-box {
+  margin-bottom: 20px;
+  .user-icon {
+    width: 80px;
+    height: 80px;
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    background-color: white;
+    float: left;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+
+  .outline {
+    position: relative;
+    height: 80px;
+    padding-top: 5px;
+  }
+
+  h1 {
+    display: inline-block;
+    margin: 0;
+    line-height: 34px;
+    vertical-align: middle;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .second-line {
+    margin-top: 10px;
+    .count {
+      font-size: 26px;
+    }
+    .unit {
+      color: #555;
+      font-size: 18px;
+    }
+  }
+  .follow-btn {
+    position: absolute;
+    right: 0;
+    top: 20px;
+  }  
+}

@@ -28,13 +28,19 @@ module LinkHelper
 #   end
   
   def link_to_provider(provider, html_options={})
-    if UserAuth.where(user_id: current_user.id, provider: provider).exists?
+    txt,path = '',''
+    if UserAuth.registered? current_user, provider
       html_options = { class: 'btn btn-default' }.merge(html_options)
       html_options = { method: :delete }.merge(html_options)
-      link_to fa_icon(provider, text: "#{ provider.capitalize }の紐付けを解除"), destroy_connection_path(provider), html_options
+      path = destroy_connection_path(provider)
+      txt = "#{ provider.capitalize }の紐付けを解除"
+#       link_to fa_icon(provider, text: "#{ provider.capitalize }の紐付けを解除"), destroy_connection_path(provider), html_options
     else
       html_options = { class: 'btn btn-info' }.merge(html_options)
-      link_to fa_icon(provider, text: "#{ provider.capitalize }と連携"), user_omniauth_authorize_path(provider), html_options
+      path = user_omniauth_authorize_path(provider)
+      txt = "#{ provider.capitalize }と連携"
+#       link_to fa_icon(provider, text: "#{ provider.capitalize }と連携"), user_omniauth_authorize_path(provider), html_options
     end
+    link_to fa_icon(provider, text: txt), path, html_options
   end
 end
