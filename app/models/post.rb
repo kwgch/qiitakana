@@ -1,4 +1,7 @@
 class Post < ActiveRecord::Base
+  
+  default_scope -> { order('created_at DESC') }
+  
   has_many :comments
   has_many :taggings
   has_many :tags, through: :taggings  
@@ -17,14 +20,13 @@ class Post < ActiveRecord::Base
     Tag.find_by!(name: name).posts
   end
 
-  def self.tag_counts
-    Tag.select("tags.*, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id")
-  end
+#   def self.tag_counts
+#     Tag.select("tags.*, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id")
+#   end
   
-  def tag_list
-    tags.map(&:name).join(" ")
-#     tags.map(&:name)
-  end
+#   def tag_list
+#     tags.map(&:name).join(" ")
+#   end
   
 #   def tag_list=(names)
 #     self.tags = names.split(",").map do |n|
@@ -43,6 +45,11 @@ class Post < ActiveRecord::Base
   def markup
     markdown_engine = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     self.body = markdown_engine.render(self.markdown)
+  end
+  
+  def self.from_users_followed_by(user)
+    followed_user_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", user_id: user.id)
   end
   
 #   def set_operator

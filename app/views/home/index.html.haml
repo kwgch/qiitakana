@@ -1,5 +1,39 @@
-%br
-%p= link_to 'アカウント設定', '/users/edit'
-%p= link_to 'ノウハウ・Tipsを投稿する', new_user_post_path(current_user), class: 'btn btn-success'
-%br
-%br
+
+-if signed_in?
+
+  .container.feed-page
+    .row
+      .span8
+        .header
+          %h2 プログラミング知識を共有しよう。
+          = link_to 'ノウハウ・Tipsを投稿する', new_user_post_path(current_user), class: 'btn btn-primary'
+        .stream-container
+          %nav
+            %ul.nav.nav-tabs
+              %li.following-tab.active
+                = link_to 'フィード', '/'
+              %li.public-tab
+                = link_to 'すべての投稿', '/'
+              %li.mine-tab.pull-right
+                = link_to '自分の投稿', '/'
+              %li.stock-tab.pull-right      
+                = link_to 'ストック', '/'
+          .streams.feed-activities{id: 'item-content'}
+            .following-stream.active
+              %div
+                .flush-button
+                .activities
+                  = render 'shared/feed'
+      .span3
+        #home-user_info
+          .left
+            = link_to gravatar_for(current_user), current_user
+          .right
+            .url_name
+              = link_to current_user.username, current_user
+            .current_user
+              %span.count= "#{current_user.posts.count}"
+              %span.unit= " Contribution"
+                 
+-else
+  サインインしてくだしゃい

@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
     self.user_auth.build(uid: auth['uid'], provider: auth['provider'], user_id: self.id)
   end
   
+  def feed
+    Post.from_users_followed_by(self)
+  end
+  
   def following?(other_user)
     relationships.find_by(followed_id: other_user.id)
   end

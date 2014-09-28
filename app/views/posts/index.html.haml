@@ -15,8 +15,7 @@
   -unless @tag
     %h1= @user.username
     .text-right= link_to 'フォロー', user_posts_path, class: 'btn btn-default' unless signedin_user? @user
-    
-    
+
 %table.table
   %tbody
     - @posts.try :each do |post|

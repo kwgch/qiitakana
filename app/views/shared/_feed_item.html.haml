@@ -1,8 +1,18 @@
-%li{:id => feed_item.id}
-  = link_to gravatar_for(feed_item.user), feed_item.user
-  %span.user
-    = link_to feed_item.user.name, feed_item.user
-  %span.content= wrap(feed_item.content)
-  %span.timestamp
-    Posted #{time_ago_in_words(feed_item.created_at)} ago.
-  = render 'shared/micropost_delete', micropost: feed_item
+.item-box{style: 'border-bottom: solid 1px #ccc;'}
+  .vertical-close-button
+    %i.fa.fa-angle-double-right
+  .item-box-container-inner{style: 'margin-left: 0px; padding-left: 0px; padding-right: 0px;'}
+    .action-user-icon
+      .action-icon
+        //%i.fa.fa-tag
+      = link_to gravatar_for(feed_item.user), feed_item.user
+    .item-box-area
+      .item-box-header
+        .action
+          %span.user
+            = link_to feed_item.user.username, feed_item.user 
+            が#{time_ago_in_words(feed_item.created_at)}前に投稿しました。
+        .item-box-title
+          %h1= link_to feed_item.title, user_post_path(feed_item.user, feed_item)
+          %ul.tag-list.unstyled= tags_link feed_item
+          
