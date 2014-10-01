@@ -47,6 +47,10 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-material-design (0.0.8)
+      bootstrap-sass (= 3.2.0.2)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     bootstrap-will_paginate (0.0.10)
       will_paginate
     builder (3.2.2)
@@ -298,6 +302,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bootstrap-material-design
   bootstrap-will_paginate
   capybara
   coffee-rails (~> 4.0.0)

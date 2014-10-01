@@ -1,0 +1,24 @@
+.container.tagShow
+  .row
+    .col-sm-8.tagsShowMain
+      .tagShowHeader
+        %h1.tagShowHeader_name= @tag.name
+        .tagShowHeader_followButton
+          %span.btn.js-tag-follow-btn.btn-primary
+            フォローする
+      .tagShowStats
+        .tagShowStats_metric
+          .count= @tag.posts.length
+          .unit 投稿
+        .tagShowStats_metric
+          .count 0
+          .unit フォロワー
+        .tagShowStats_description
+          %p= "#{ @tag.name }に関する情報が集まっています。現在#{ @tag.posts.length }件の投稿があります。 またxx人のユーザーが#{ @tag.name }タグをフォローしています。"
+      %section.tagShowSection.tagShowStockedItems
+        %h2 最近ストックされた投稿
+        .tagShowStockedItems_items
+          = render 'shared/feed'
+        = will_paginate @feed_items
+      
+      

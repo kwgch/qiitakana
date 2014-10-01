@@ -232,13 +232,15 @@ ja:
       update_needs_confirmation: アカウント情報を変更しました。しかし、メールアドレスを確認する必要があります。メール内のリンクで新しいメールアドレスを確認してください。
       updated: アカウント情報を更新しました。
     sessions:
-      already_signed_out: 
+      already_signed_out: 既にログアウトしています。
       signed_in: ログインしました。
       signed_out: ログアウトしました。
     unlocks:
       send_instructions: アカウントの凍結解除方法を数分以内にメールでご連絡します。
       send_paranoid_instructions: アカウントが登録されていれば、数分以内にアカウントの凍結解除方法が登録しているアドレスに届きます。
       unlocked: アカウントを凍結解除しました。続けるにはログインしてください。
+    user:
+      already_signed_out: 既にログアウトしています。
   errors:
     messages:
       already_confirmed: は既に登録済みです

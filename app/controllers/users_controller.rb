@@ -1,7 +1,6 @@
 # class UsersController < DeviseController
 class UsersController < ApplicationController
 #   include DeviseController 
-#   before_action :authenticate_user!
   
   def index
     @users = User.paginate(page: params[:page])

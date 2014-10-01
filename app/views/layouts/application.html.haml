@@ -30,6 +30,8 @@
     %link{rel: :stylesheet, type: :"text/css", href: '//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css'}
   %body
     =render 'layouts/header' 
-    .main
-      = bootstrap_flash
-      = yield
+    .main.container
+      .row
+        .col-lg-9{style:'border:red'}
+        = bootstrap_flash
+        = yield

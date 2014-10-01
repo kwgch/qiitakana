@@ -1,19 +1,10 @@
 Rails.application.routes.draw do
 
   root 'home#index'
-  get 'home/index'
-  get 'tags/:tag', to: 'posts#index', as: :tag
+#   get 'home/index'
   
-#   resources :user do
-#     resources :posts
-#   end
-  
-  resources :users, only: [:show] do
-    resources :posts
-    member do
-      get :following, :followers
-    end
-  end
+  get 'home/public', to: 'home#public_feeds', as: :home_public
+  get 'home/mine', to: 'home#mine', as: :home_mine
   
   resources :relationships, only: [:create, :destroy]
   
@@ -22,12 +13,19 @@ Rails.application.routes.draw do
   devise_scope :user do 
     get 'auth/:provider/callback', to: 'auth#create'
     delete 'auth/destroy/:provider', to: 'auth#destroy', as: :destroy_connection
-#     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
   
-
+  get 'users/:id', to: 'users#show', as: :user
   
-#   get ':suer', to: 'posts#index', as: :tag
+  resources :users, only: [] do
+    resources :posts
+    member do
+      get :following, :followers
+    end
+  end
+  
+  resources :tags, only: [:show]
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

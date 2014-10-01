@@ -26,6 +26,8 @@ gem 'record_with_operator'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+gem 'bootstrap-material-design'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'spring'
