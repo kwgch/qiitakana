@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   
   resources :relationships, only: [:create, :destroy]
   
+  resources :tag_follows, only: [:create, :destroy]
+  
   devise_for :users, controllers: { omniauth_callbacks: "auth" }
   
   devise_scope :user do 

@@ -4,17 +4,20 @@
       .tagShowHeader
         %h1.tagShowHeader_name= @tag.name
         .tagShowHeader_followButton
-          %span.btn.js-tag-follow-btn.btn-primary
-            フォローする
+          //%span.btn.js-tag-follow-btn.btn-primary
+          = render 'follow_form' if signed_in?
       .tagShowStats
         .tagShowStats_metric
           .count= @tag.posts.length
           .unit 投稿
         .tagShowStats_metric
-          .count 0
+          .count.followers= @tag.users.length
           .unit フォロワー
         .tagShowStats_description
-          %p= "#{ @tag.name }に関する情報が集まっています。現在#{ @tag.posts.length }件の投稿があります。 またxx人のユーザーが#{ @tag.name }タグをフォローしています。"
+          %p 
+            ="#{ @tag.name }に関する情報が集まっています。現在#{ @tag.posts.length }件の投稿があります。 また"
+            %span.followers= "#{ @tag.users.length }"
+            = "人のユーザーが#{ @tag.name }タグをフォローしています。"
       %section.tagShowSection.tagShowStockedItems
         %h2 最近ストックされた投稿
         .tagShowStockedItems_items

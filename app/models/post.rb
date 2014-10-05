@@ -54,8 +54,19 @@ class Post < ActiveRecord::Base
     where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", user_id: user.id)
   end
   
+  def self.from_tag_followed_by(user)
+    s1 = "SELECT tag_id FROM tag_follows WHERE user_id = :user_id"
+    s2 = "SELECT post_id FROM taggings WHERE tag_id IN (#{s1})"
+    where("id IN (#{s2}) ", user_id: user.id)
+  end
+  
 #   def set_operator
 #     RecordWithOperator.operator = get_current_user
 #   end
+
+  # usage : User.union(@group1.users, @group2.users).limit(20)
+  def self.union(*relations)
+    from "(#{ relations.map { |r| r.ast.to_sql }.join(' UNION ') }) AS #{self.table_name}"
+  end
   
 end

@@ -10,17 +10,19 @@ class User < ActiveRecord::Base
   
   has_many :user_auth, dependent: :destroy
   has_many :posts
-  
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+  has_many :tag_follows, foreign_key: "user_id"
+  has_many :tags, through: :tag_follows
   
 	before_save { self.email = email.downcase }
 
   after_create :create_user_auth
+  
   attr_accessor :login
   
   validates :username, uniqueness: { case_sensitive: false }
@@ -46,7 +48,11 @@ class User < ActiveRecord::Base
   end
   
   def feed
-    Post.from_users_followed_by(self)
+    Post.union(
+      Post.unscoped.from_users_followed_by(self), 
+      Post.unscoped.from_tag_followed_by(self)
+    ).order('created_at DESC')
+#     self.tags.posts
   end
   
   def following?(other_user)
@@ -61,4 +67,17 @@ class User < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy
   end
   
+  # tag
+  def tag_following?(tag)
+    tag_follows.find_by(tag_id: tag.id)
+  end
+  
+  def tag_follow!(tag)
+    tag_follows.create!(tag_id: tag.id)
+  end
+  
+  def tag_unfollow!(tag)
+    tag_follows.find_by(tag_id: tag.id).destroy
+  end
+    
 end

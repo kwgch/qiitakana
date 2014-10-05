@@ -25,8 +25,8 @@ gem 'redcarpet'
 gem 'record_with_operator'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-
-gem 'bootstrap-material-design'
+# gem 'bootstrap-material-design'
+gem 'annotate', '~> 2.6.5'
 
 group :development, :test do
   gem 'sqlite3'
