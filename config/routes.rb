@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   root 'home#index'
 #   get 'home/index'
   
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [] do
     resources :posts
+    resources :profiles, only: [:edit, :update]
     member do
       get :following, :followers
     end

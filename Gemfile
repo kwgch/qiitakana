@@ -30,6 +30,7 @@ gem 'annotate', '~> 2.6.5'
 
 group :development, :test do
   gem 'sqlite3'
+#   gem 'mysql2'
   gem 'spring'
   gem 'rspec-rails'
   gem "factory_girl_rails"

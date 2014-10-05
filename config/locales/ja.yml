@@ -258,3 +258,16 @@ ja:
             password:
               too_long: は%{count}文字以内で入力してください。
               too_short: は%{count}文字以上で入力してください。
+
+    attributes:
+      profile:
+        first_name: 名字
+        last_name: 名前
+        website_url: サイト/ブログ
+        organization: 所属している組織、会社
+        location: 居住地
+        description: 自己紹介
+        facebook_id: Facebook ID
+        linkedin_id: LinkedIn ID
+        google_plus_id: Google+ ID
+        

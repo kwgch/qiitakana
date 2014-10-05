@@ -2,7 +2,7 @@
   .container
     .row
       %span.span12
-        = gravatar_for @user
+        .text-left{style: 'border:solid white;'}= gravatar_for @user
         .outline
           .first-line
             %h1= @user.username
@@ -10,11 +10,52 @@
             %span.count= "#{@user.posts.count}"
             %span.unit= " Contribution"
             = render 'follow_form' if signed_in?
-  
+-if @user.profile
+  .user-info-wrapper
+    .container
+      .row
+        //.span4
+        .col-lg-4
+          .user-attributes
+            %ul.unstyled
+              %p.full-name= @user.profile.fullname
+              %p
+                %i.fa.fa-envelope
+                %a{href: "mailto:#{@user.email}"}
+                  = @user.email
+              - if @user.profile.website_url
+                %p
+                  %i.fa.fa-link
+                  %a{href: @user.profile.website_url}
+                    = @user.profile.website_url
+              - if @user.profile.organization
+                %p
+                  %i.fa.fa-building-o
+                  = @user.profile.organization
+              - if @user.profile.location
+                %p
+                  %i.fa.fa-map-marker
+                  = @user.profile.location
+              - if @user.profile.description
+                %h6
+                  自己紹介
+                .description= @user.profile.description
+        //.span3
+        .col-lg-3
+          %section
+            %h6= "フォロー中のタグ #{@user.tags.count}"
+            %ul.tags= tags_link @user
+          .clearfix
+          %section
+            %h6
+              %a{href: following_user_path(@user)}
+                = "フォロー中のユーザー #{@user.followed_users.count}"
+          %section
+            %h6
+              %a{href: followers_user_path(@user)}
+                = "フォロワー #{@user.followers.count}"
 %section
-  = render 'shared/stats'
-
   - if @user.posts.any?
-    %ul.posts
-      = render @posts
-    = will_paginate @posts
+    = render 'shared/feed'
+    = will_paginate @feed_items
+    

@@ -16,6 +16,11 @@ module LinkHelper
     link_to fa_icon('cog', text: 'アカウント設定', right: true), '/users/edit'
   end
   
+  
+  def profile_config_link
+    link_to fa_icon('user', text: 'プロフィール設定', right: true), edit_user_profile_path(current_user, current_user.profile)
+  end
+  
 #   def link_to_sign_in_or_out(html_options={})
 #     if user_signed_in?
 #       body = icon(:'sign-out') + t(:"devise.shared.links.sign_out", default: "Sign out")

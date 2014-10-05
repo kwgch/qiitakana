@@ -11,11 +11,6 @@ module PostsHelper
     link_to post.title, [post.user, post]
   end
   
-  def tags_link(post)
-    return unless post.tags.length
-    post.tags.map(&:name).map { |t| content_tag "li", link_to(t, tag_path(t)) }.join(' ').html_safe
-  end
-  
   def wrap(content)
     sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
   end

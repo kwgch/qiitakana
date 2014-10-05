@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
 #   delegate :taggiTngs, to: :post
   
   has_many :tag_follows
-  has_many :users, through: :tag_follow
+  has_many :users, through: :tag_follows
   
   before_validation do
     Tag.find_by(name: self.name).any?

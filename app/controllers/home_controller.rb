@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   def index
     if signed_in?
       @feed_items = current_user.feed.paginate(page: params[:page])
+#       @feed_items = current_user.feed
     else
       redirect_to new_user_session_path
     end

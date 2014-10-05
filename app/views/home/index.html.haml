@@ -26,6 +26,7 @@
                 .flush-button
                 .activities
                   = render 'shared/feed'
+                  = will_paginate @feed_items
       //.span3
       .col-lg-3
         .well.sidebar-nav{id: 'home-user_info'}

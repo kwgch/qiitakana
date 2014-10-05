@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
 #   friendly_id :username, use: :slugged
   include Redcarpet
   
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, authentication_keys: [:login]
   
@@ -19,9 +17,12 @@ class User < ActiveRecord::Base
   has_many :tag_follows, foreign_key: "user_id"
   has_many :tags, through: :tag_follows
   
+  has_one :profile
+  
 	before_save { self.email = email.downcase }
 
   after_create :create_user_auth
+  after_create :create_profile
   
   attr_accessor :login
   
@@ -47,12 +48,12 @@ class User < ActiveRecord::Base
     self.user_auth.build(uid: auth['uid'], provider: auth['provider'], user_id: self.id)
   end
   
+  def create_profile
+    self.profile.build
+  end
+  
   def feed
-    Post.union(
-      Post.unscoped.from_users_followed_by(self), 
-      Post.unscoped.from_tag_followed_by(self)
-    ).order('created_at DESC')
-#     self.tags.posts
+    Post.feed(self)
   end
   
   def following?(other_user)

@@ -6,12 +6,7 @@ class PostsController < ApplicationController
 
   
   def index
-    if params[:tag]
-      @posts = Post.tagged_with(params[:tag])
-      @tag = Tag.find_by(name: params[:tag])
-    else
-      @posts = @user.posts.all
-    end
+    @posts = @user.posts.all
   end
 
   def show
@@ -68,7 +63,7 @@ class PostsController < ApplicationController
   def set_user
     @user = User.find_first_by_auth_conditions(login: params[:user_id])
 #     binding.pry
-    raise ActiveRecord::RecordNotFound if @user.blank?
+#     raise ActiveRecord::RecordNotFound if @user.blank?
   end
   
     # Never trust parameters from the scary internet, only allow the white list through.

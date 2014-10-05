@@ -4,14 +4,16 @@
     .action-user-icon
       .action-icon
         //%i.fa.fa-tag
-      = link_to gravatar_for(feed_item.user), user_posts_path(feed_item.user), {class: 'user-icon'}
+      = link_to gravatar_for(feed_item.user), feed_item.user, {class: 'user-icon'} if feed_item.user
     .item-box-area
       .item-box-header
         .action
           %span.user
-            = link_to feed_item.user.username, user_posts_path(feed_item.user)
-            が#{time_ago_in_words(feed_item.created_at)}前に投稿しました。
+            - if feed_item.user
+              = link_to feed_item.user.username, feed_item.user
+              が#{time_ago_in_words(feed_item.created_at)}前に投稿しました。
         .item-box-title
-          %div{style: 'float: left;'}
-            %h1= link_to feed_item.title, user_post_path(feed_item.user, feed_item)
-          %ul.tags.tag-list.unstyled= tags_link feed_item
+          - if feed_item.user
+            %div{style: 'float: left;'}
+              %h1= link_to feed_item.title, user_post_path(feed_item.user, feed_item)
+            %ul.tags.tag-list.unstyled= tags_link feed_item

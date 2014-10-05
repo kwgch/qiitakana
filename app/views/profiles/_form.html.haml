@@ -1,0 +1,15 @@
+= simple_form_for([current_user, current_user.profile]) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :website_url
+    = f.input :organization
+    = f.input :location
+    = f.input :description
+    = f.input :facebook_id
+    = f.input :linkedin_id
+    = f.input :google_plus_id
+    = f.hidden_field :user_id
+  .form-actions
+    = f.button :submit, "保存する"

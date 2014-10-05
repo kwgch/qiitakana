@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   
-  self.per_page = 5
+  self.per_page = 10
   
   default_scope -> { order('created_at DESC') }
   
@@ -22,20 +22,6 @@ class Post < ActiveRecord::Base
     Tag.find_by!(name: name).posts
   end
 
-#   def self.tag_counts
-#     Tag.select("tags.*, count(taggings.tag_id) as count").joins(:taggings).group("taggings.tag_id")
-#   end
-  
-#   def tag_list
-#     tags.map(&:name).join(" ")
-#   end
-  
-#   def tag_list=(names)
-#     self.tags = names.split(",").map do |n|
-#       Tag.where(name: n.strip).first_or_create!
-#     end
-#   end
-  
   def reject_comments(attributed)
     attributed['body'].blank?
   end
@@ -54,19 +40,17 @@ class Post < ActiveRecord::Base
     where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", user_id: user.id)
   end
   
-  def self.from_tag_followed_by(user)
-    s1 = "SELECT tag_id FROM tag_follows WHERE user_id = :user_id"
-    s2 = "SELECT post_id FROM taggings WHERE tag_id IN (#{s1})"
-    where("id IN (#{s2}) ", user_id: user.id)
+  def self.from_tags_followed_by(user)
+    subquery1 = "SELECT tag_id FROM tag_follows WHERE user_id = :user_id"
+    subquery2 = "SELECT post_id FROM taggings WHERE tag_id IN (#{subquery1})"
+    where("id IN (#{subquery2}) ", user_id: user.id)
   end
   
-#   def set_operator
-#     RecordWithOperator.operator = get_current_user
-#   end
-
-  # usage : User.union(@group1.users, @group2.users).limit(20)
-  def self.union(*relations)
-    from "(#{ relations.map { |r| r.ast.to_sql }.join(' UNION ') }) AS #{self.table_name}"
+  def self.feed(user)
+    self.union(
+      self.unscoped.from_users_followed_by(user),
+      self.unscoped.from_tags_followed_by(user)
+    ).order('created_at DESC')
   end
   
 end
