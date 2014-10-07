@@ -1,0 +1,6 @@
+{
+  "name": "qiitakana",
+  "description": "Qiitakana is an application to provide a SNS for other users to share the knowledge of each.",
+  "repository": "https://github.com/kwgch/qiitakana",
+  "keywords": ["knowledge","sns"]
+}
