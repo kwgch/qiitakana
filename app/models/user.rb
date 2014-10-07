@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
   
   def create_profile
-    self.profile.build
+    self.build_profile
   end
   
   def feed
