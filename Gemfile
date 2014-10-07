@@ -27,6 +27,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 # gem 'bootstrap-material-design'
 gem 'annotate', '~> 2.6.5'
+gem 'counter_culture'
 
 group :development, :test do
   gem 'sqlite3'
@@ -57,6 +58,8 @@ group :development do
   gem 'quiet_assets'
   gem 'binding_of_caller'
   gem 'pry-byebug'
+  gem "bullet"
+  gem 'rack-mini-profiler'
 end
 
 group :production do

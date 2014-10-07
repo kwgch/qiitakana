@@ -270,4 +270,6 @@ ja:
         facebook_id: Facebook ID
         linkedin_id: LinkedIn ID
         google_plus_id: Google+ ID
-        
+  will_paginate:
+    previous_label: "前へ"
+    next_label: "次へ"

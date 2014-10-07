@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   
   self.per_page = 10
   
-  default_scope -> { order('created_at DESC') }
+  default_scope -> { includes(:user).includes(:tags).order('created_at DESC') }
   
   has_many :comments
   has_many :taggings

@@ -9,16 +9,19 @@ module LinkHelper
   end
   
   def signout_link
-    link_to fa_icon('sign-out', text: 'ログアウト', right: true), destroy_user_session_path, method: 'delete'
+    link_to fa_icon('sign-out', text: 'ログアウト'), destroy_user_session_path, method: 'delete'
   end
   
   def account_config_link
-    link_to fa_icon('cog', text: 'アカウント設定', right: true), '/users/edit'
+    link_to fa_icon('cog', text: 'アカウント設定'), '/users/edit'
   end
   
   
   def profile_config_link
-    link_to fa_icon('user', text: 'プロフィール設定', right: true), edit_user_profile_path(current_user, current_user.profile)
+    link_to fa_icon('user', text: 'プロフィール設定'), 
+      (current_user.profile.present? && current_user.profile.id.present? ?
+        edit_user_profile_path(current_user, current_user.profile) :
+        new_user_profile_path(current_user))
   end
   
 #   def link_to_sign_in_or_out(html_options={})

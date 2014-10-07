@@ -1,0 +1,17 @@
+- provide(:title, @title)
+.row
+  %aside.col-md-4
+    %section
+      = gravatar_for @user
+      %h1= @user.username
+      %span= link_to "view my profile", @user
+      %span
+        %b posts:
+        = @user.posts.count
+  .col-md-8
+    %h3= @title
+    - if @tags.any?
+      %ul.tags
+        - @tags.each do |tag|
+          = link_to tag.name, tag
+      = will_paginate @tags

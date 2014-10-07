@@ -1,4 +1,6 @@
-= simple_form_for([current_user, current_user.profile]) do |f|
+//= simple_form_for([current_user, current_user.profile]) do |f|
+
+= simple_form_for( current_user.profile && current_user.profile.id ? [current_user, current_user.profile] : @profile) do |f|
   = f.error_notification
   .form-inputs
     = f.input :first_name

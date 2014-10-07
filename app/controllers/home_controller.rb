@@ -1,20 +1,27 @@
 class HomeController < ApplicationController
+  before_action :signed_in_user
+  before_action :set_tab_class
   
   def index
-    if signed_in?
-      @feed_items = current_user.feed.paginate(page: params[:page])
-#       @feed_items = current_user.feed
-    else
-      redirect_to new_user_session_path
-    end
+      @feed_items = wrap_query current_user.feed
   end
   
   def public_feeds
-    @feed_items = Post.find_all.paginate(page: params[:page])
+    @feed_items = wrap_query Post.all
+    render action: 'index'
   end
   
   def mine
-    @feed_items = current_user.posts.paginate(page: params[:page])
+    @feed_items = wrap_query current_user.posts
+    render action: 'index'
+  end
+
+  def wrap_query(q)
+    q.paginate(page: params[:page])
+  end
+  
+  def set_tab_class
+    @tab_class = "#{params[:action]}-tab"
   end
   
 end

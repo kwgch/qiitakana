@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
+  include SessionHelper
+  
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   # Set a filter that is invoked on every request
-  before_action :_set_current_session
+  before_action :set_current_session
   before_action :set_operator
+  
+#   around_action :wrap_in_transaction
   
   # 例外ハンドル
   if !Rails.env.development?
@@ -40,15 +44,13 @@ class ApplicationController < ActionController::Base
   end
   
   # model から sessionを参照可能にする
-  def _set_current_session
+  def set_current_session
 #     binding.pry
     accessor = instance_variable_get(:@_request)
     ActiveRecord::Base.send(:define_method, "session", proc { accessor.session })
   end
     
   def set_operator
-#     ActiveRecord::Base.send(:define_method, "get_current_user", proc { current_user })
-#     binding.pry          # Execution will stop here.
     RecordWithOperator.operator = current_user
   end
     
@@ -59,4 +61,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :provider, :uid) }
   end
 
+      
+      private
+
+      def wrap_in_transaction
+        ActiveRecord::Base.transaction do
+          begin
+            yield
+#             ensure
+#             raise ActiveRecord::Rollback
+          end
+        end
+      end
 end

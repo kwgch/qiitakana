@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
   has_many :users, through: :tag_follows
   
   before_validation do
-    Tag.find_by(name: self.name).any?
+    Tag.find_by(name: self.name).present?
   end
   
 #   def following?(user)

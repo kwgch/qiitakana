@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   root 'home#index'
 #   get 'home/index'
   
-  get 'home/public', to: 'home#public_feeds', as: :home_public
-  get 'home/mine', to: 'home#mine', as: :home_mine
+  get 'public', to: 'home#public_feeds', as: :home_public
+  get 'mine', to: 'home#mine', as: :home_mine
   
   resources :relationships, only: [:create, :destroy]
   
@@ -20,10 +20,10 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'users#show', as: :user
   
   resources :users, only: [] do
-    resources :posts
-    resources :profiles, only: [:edit, :update]
+    resources :posts, except: [:index]
+    resources :profiles, only: [:new, :create, :edit, :update]
     member do
-      get :following, :followers
+      get :following, :followers, :following_tags
     end
   end
   

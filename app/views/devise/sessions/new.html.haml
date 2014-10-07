@@ -17,7 +17,7 @@
         invalid: 'glyphicon glyphicon-remove',
         validating: 'glyphicon glyphicon-refresh'
       },
-      fields: {
+      fields: [{
         'user[login]': {
           validators: {
             notEmpty: { message: '必須項目です' }
@@ -28,6 +28,6 @@
             notEmpty: { message: '必須項目です' }
           }
         }
-      }
+      }]
     });
   });

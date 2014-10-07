@@ -32,4 +32,11 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   
+  def following_tags
+    @title = "Following Tags"
+    @user = User.find_by(username: params[:id])
+    @tags = @user.tags.paginate(page: params[:page])
+    render 'show_follow_tags'
+  end
+  
 end

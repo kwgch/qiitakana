@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
   end
 
   def new
-    @profile = Profile.new
+    @profile = current_user.build_profile(profile_params)
   end
 
   def edit
@@ -20,19 +20,18 @@ class ProfilesController < ApplicationController
 #     @profile = Profile.new(profile_params)
 
     respond_to do |format|
-      if @profile.save
-        format.html { redirect_to user_profile_path(current_user, @profile), notice: 'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
+      if @profile.save(profile_params)
+        message = {notice: 'プロフィールを保存しました。'}
       else
-        format.html { render :new }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+        message = {alert: 'プロフィールの保存に失敗しました。'}
       end
+      format.html { redirect_to edit_user_profile_path(current_user, @profile), message }
     end
   end
 
   def update
     respond_to do |format|
-      if @profile.update(profile_params)
+      if @profile.save(profile_params)
         message = {notice: 'プロフィールを保存しました。'}
       else
         message = {alert: 'プロフィールの保存に失敗しました。'}
