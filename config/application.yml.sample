@@ -1,0 +1,11 @@
+development:     
+  github_app_id: xxxxxxxxxxxxxxxxxxxx
+  github_app_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  twitter_consumer_key: xxxxxxxxxxxxxxxxxxxx
+  twitter_consumer_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    
+production:
+  github_app_id: xxxxxxxxxxxxxxxxxxxx
+  github_app_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  twitter_consumer_key: xxxxxxxxxxxxxxxxxxxx
+  twitter_consumer_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
