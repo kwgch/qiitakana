@@ -23,20 +23,20 @@
                 %i.fa.fa-envelope
                 %a{href: "mailto:#{@user.email}"}
                   = @user.email
-              - if @user.profile.website_url
+              - if @user.profile.website_url.present?
                 %p
                   %i.fa.fa-link
                   %a{href: @user.profile.website_url}
                     = @user.profile.website_url
-              - if @user.profile.organization
+              - if @user.profile.organization.present?
                 %p
                   %i.fa.fa-building-o
                   = @user.profile.organization
-              - if @user.profile.location
+              - if @user.profile.location.present?
                 %p
                   %i.fa.fa-map-marker
                   = @user.profile.location
-              - if @user.profile.description
+              - if @user.profile.description.present?
                 %h6
                   自己紹介
                 .description= @user.profile.description

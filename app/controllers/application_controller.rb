@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :set_current_session
   before_action :set_operator
   
-#   around_action :wrap_in_transaction
-  
   # 例外ハンドル
   if !Rails.env.development?
 #     binding.pry
@@ -27,7 +25,6 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       render json: { error: '404 error' }, status: 404
     else
-#       render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
       render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html'
     end
   end
@@ -45,7 +42,6 @@ class ApplicationController < ActionController::Base
   
   # model から sessionを参照可能にする
   def set_current_session
-#     binding.pry
     accessor = instance_variable_get(:@_request)
     ActiveRecord::Base.send(:define_method, "session", proc { accessor.session })
   end
@@ -61,16 +57,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :provider, :uid) }
   end
 
-      
-      private
-
-      def wrap_in_transaction
-        ActiveRecord::Base.transaction do
-          begin
-            yield
-#             ensure
-#             raise ActiveRecord::Rollback
-          end
-        end
-      end
 end

@@ -6,7 +6,8 @@
 
   .form-inline
     = f.fields_for :tags, wrapper: "horizontal_form", html: { class: 'form-horizontal' } do |t|
-      = "</div><br><div class='form-inline'>".html_safe if t.options[:child_index].even?
+      - if t.options[:child_index] > 0 && t.options[:child_index].even?
+        = "</div><br><div class='form-inline'>".html_safe
       = t.input :name, label: false, input_wrapper_html: { class: "col-xs-4" }, placeholder: 'タグ'
 
   %p

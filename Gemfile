@@ -27,9 +27,10 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 # gem 'bootstrap-material-design'
 gem 'annotate', '~> 2.6.5'
-gem 'counter_culture'
+# gem 'counter_culture'
 gem 'tachikoma'
 gem 'coveralls', require: false
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'sqlite3'
