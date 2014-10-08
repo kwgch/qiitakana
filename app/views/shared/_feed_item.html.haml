@@ -3,7 +3,6 @@
   .item-box-container-inner{style: 'margin-left: 0px; padding-left: 0px; padding-right: 0px;'}
     .action-user-icon
       .action-icon
-        //%i.fa.fa-tag
       = link_to gravatar_for(feed_item.user), feed_item.user, {class: 'user-icon'} if feed_item.user
     .item-box-area
       .item-box-header
@@ -16,4 +15,4 @@
           - if feed_item.user
             %div{style: 'float: left;'}
               %h1= link_to feed_item.title, user_post_path(feed_item.user, feed_item)
-            %ul.tags.tag-list.unstyled= tags_link feed_item
+            %ul.tags= tags_link feed_item

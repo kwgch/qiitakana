@@ -2,21 +2,6 @@ class AuthController < Devise::OmniauthCallbacksController
 
   skip_before_filter :authenticate_user!
 
-#   def create
-#     auth = request.env['omniauth.auth']
-#     uid = auth['uid']
-#     provider = auth['provider']
-#     auth = UserAuth.where(uid: uid, provider: provider).first
-#     if auth
-#       flash[:notice] = "#{provider}でログインしました。"
-#       sign_in_and_redirect auth.user, event: :authentication
-#     else
-#       authenticate_user!
-#       current_user.user_auth.build(uid: uid, provider: provider, user_id: user.id)
-#       redirect_to root_url, notice: "#{provider}と連携しました。"
-#     end
-#   end
-
   def destroy
     provider = params.require(:provider)
     authenticate_user!
@@ -42,7 +27,6 @@ class AuthController < Devise::OmniauthCallbacksController
     auth = request.env['omniauth.auth']
     uid = auth['uid']
     auth = UserAuth.where(uid: uid, provider: provider).first
-#     binding.pry
     if auth.try(:persisted?)
       if current_user && current_user.id != auth.user_id
         redirect_to edit_user_registration_path, alert: "既に他のアカウントに紐付けられています。"         

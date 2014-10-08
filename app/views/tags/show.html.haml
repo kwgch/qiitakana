@@ -4,7 +4,6 @@
       .tagShowHeader
         %h1.tagShowHeader_name= @tag.name
         .tagShowHeader_followButton
-          //%span.btn.js-tag-follow-btn.btn-primary
           = render 'follow_form' if signed_in?
       .tagShowStats
         .tagShowStats_metric
@@ -23,5 +22,3 @@
         .tagShowStockedItems_items
           = render 'shared/feed'
         = will_paginate @feed_items
-      
-      

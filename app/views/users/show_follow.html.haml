@@ -3,11 +3,9 @@
   %aside.col-md-4
     %section
       = gravatar_for @user
-      %h1= @user.username
-      %span= link_to "view my profile", @user
+      %h1= link_to @user.username, @user
       %span
-        %b posts:
-        = @user.posts.count
+        %b= "#{@user.posts.count}Contribution"
     %section
       = render 'shared/stats'
   .col-md-8
