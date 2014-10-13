@@ -252,6 +252,8 @@ ja:
       
   activerecord:
     errors:
+      messages:
+        record_invalid: record_invalid
       models:
         user:
           attributes:
