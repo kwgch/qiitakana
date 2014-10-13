@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   
-  self.per_page = 10
+  self.per_page = 3
   
   default_scope -> { includes(:user).includes(:tags).order('created_at DESC') }
   

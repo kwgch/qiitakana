@@ -4,12 +4,10 @@ class TagFollowsController < ApplicationController
   
   def create
     current_user.tag_follow!(@tag)
-    redirect_to @tag
   end
 
   def destroy
     current_user.tag_unfollow!(@tag)
-    redirect_to @tag
   end
   
   def set_tag
