@@ -1,12 +1,10 @@
 class User < ActiveRecord::Base
-#   include FriendlyId
-#   friendly_id :username, use: :slugged
   include Redcarpet
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, authentication_keys: [:login]
   
-  has_many :user_auth, dependent: :destroy
+  has_many :user_auth
   has_many :posts
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed

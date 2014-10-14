@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings  
   
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   
   accepts_nested_attributes_for :comments , reject_if: :reject_comments
   accepts_nested_attributes_for :tags , reject_if: :reject_tags

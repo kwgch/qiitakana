@@ -1,6 +1,6 @@
 class Tagging < ActiveRecord::Base
   belongs_to :tag
-  belongs_to :post
+  belongs_to :post, dependent: :destroy
   
   before_save do
     tag_id = Tag.find_by(name: self.tag.name).id
