@@ -48,10 +48,16 @@ class Post < ActiveRecord::Base
   def reject_tags(attributed)
     attributed['name'].blank?
   end
+
+  @@markdown_engine = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+
+  def self.markdown_engine
+    @@markdown_engine
+#     Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+  end
   
   def markup
-    markdown_engine = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
-    self.body = markdown_engine.render(self.markdown)
+    self.body = Post.markdown_engine.render(self.markdown)
   end
   
 end

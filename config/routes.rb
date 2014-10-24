@@ -19,9 +19,13 @@ Rails.application.routes.draw do
   
   get 'users/:id', to: 'users#show', as: :user
   
+#   post 'users/:id/posts/preview', to: 'posts#preview'
+  
   resources :users, only: [] do
+    post 'posts/preview', to: 'posts#preview'
+    post 'posts/:id/preview', to: 'posts#preview'
     resources :posts, except: [:index]
-    resources :profiles, only: [:new, :create, :edit, :update]
+    resources :profiles, except: [:index, :delete]
     member do
       get :following, :followers, :following_tags
     end

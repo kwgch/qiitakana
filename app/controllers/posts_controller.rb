@@ -1,12 +1,14 @@
 class PostsController < ApplicationController
+  include PostsHelper
+  
   before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, without: [:preview]
   before_action :correct_user, only: [:update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   
-  def index
-    @posts = @user.posts.all
-  end
+#   def index
+#     @posts = @user.posts.all
+#   end
 
   def show
     @post.comments.build
@@ -32,11 +34,13 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to user_posts_url(current_user), notice: '投稿は削除されました' }
-    end
+    redirect_to user_posts_url(current_user), notice: '投稿は削除されました'
   end
 
+  def preview
+    render text: Post.markdown_engine.render(params[:markdown])
+  end
+  
   private
     def set_post
       @post = Post.unscoped.includes(:tags).find(params[:id])

@@ -11,7 +11,7 @@
       = t.input :name, label: false, input_wrapper_html: { class: "col-xs-4" }, placeholder: 'タグ'
 
   %p
-    = f.input :markdown, label: false, placeholder: 'Markdown', input_html: {rows: 10}
+    = f.input :markdown, label: false, placeholder: 'Markdown', input_html: { rows: 10 }
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
   
   %p.text-right

@@ -1,4 +1,5 @@
 module PostsHelper
+  
   def date_format(post)
     post.created_at.strftime("%Y/%m/%d")
   end
