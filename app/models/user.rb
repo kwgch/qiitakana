@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-#   include FriendlyId
-#   friendly_id :username, use: :slugged
   include Redcarpet
   
   devise :database_authenticatable, :registerable,
@@ -43,6 +41,7 @@ class User < ActiveRecord::Base
   end
   
   def create_user_auth
+    return unless defined? session
     auth = session[:current_provider_date]
     return unless auth
     self.user_auth.build(uid: auth['uid'], provider: auth['provider'], user_id: self.id)
