@@ -10,24 +10,7 @@
 
 :javascript
   $(function() {
-    $('form').bootstrapValidator({
-      live: 'enabled',
-      feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-      },
-      fields: {
-        'user[login]': {
-          validators: {
-            notEmpty: { message: '必須項目です' }
-          }
-        },
-        'user[password]': {
-          validators: {
-            notEmpty: { message: '必須項目です' }
-          }
-        }
-      }
-    });
+    validationSettings.addValidator('user[password]', 'notEmpty');
+    validationSettings.addValidator('user[login]', 'notEmpty');
+    validationSettings.init('form');
   });

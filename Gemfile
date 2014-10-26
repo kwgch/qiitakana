@@ -18,23 +18,19 @@ gem 'omniauth-twitter'
 gem "figaro"
 gem 'haml'
 gem "font-awesome-rails"
-gem 'friendly_id' # TODO
-# gem 'acts-as-taggable-on'
 gem 'redcarpet'
-# gem 'github-markup'
 gem 'record_with_operator'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-# gem 'bootstrap-material-design'
 gem 'annotate', '~> 2.6.5'
-# gem 'counter_culture'
 gem 'tachikoma'
 gem 'coveralls', require: false
 gem 'newrelic_rpm'
+# gem 'friendly_id' TODO
+# gem 'counter_culture' TODO
 
 group :development, :test do
   gem 'sqlite3'
-#   gem 'mysql2'
   gem 'spring'
   gem 'rspec-rails'
   gem "factory_girl_rails"
