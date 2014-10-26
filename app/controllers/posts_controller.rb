@@ -38,7 +38,7 @@ class PostsController < ApplicationController
   end
 
   def preview
-    render text: Post.markdown_engine.render(params[:markdown])
+    render text: Post.markdown_render(params[:markdown])
   end
   
   private

@@ -51,13 +51,12 @@ class Post < ActiveRecord::Base
 
   @@markdown_engine = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
 
-  def self.markdown_engine
-    @@markdown_engine
-#     Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+  def self.markdown_render(markdown)
+    @@markdown_engine.render(markdown)
   end
   
   def markup
-    self.body = Post.markdown_engine.render(self.markdown)
+    self.body = Post.markdown_render(self.markdown)
   end
   
 end
