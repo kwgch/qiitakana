@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_tab_class
 
   def index
     @feed_items = current_user.feed.paginate(page: params[:page])
@@ -15,11 +14,4 @@ class HomeController < ApplicationController
     @feed_items = current_user.posts.paginate(page: params[:page])
     render action: 'index'
   end
-
-  private
-
-    def set_tab_class
-      @tab_class = "#{params[:action]}-tab"
-    end
-
 end
