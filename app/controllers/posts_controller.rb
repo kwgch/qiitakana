@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   include PostsHelper
-  
+
   before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :set_user, without: [:preview]
-  before_action :correct_user, only: [:update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:update, :destroy]
 
   def show
     @post.comments.build
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
   def preview
     render text: Post.markdown_render(params[:markdown])
   end
-  
+
   private
     def set_post
       @post = Post.unscoped.includes(:tags).find(params[:id])
@@ -51,10 +51,11 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      post = current_user.posts.find_by(id: params[:id])
-      redirect_to user_posts_path(@user.username), alert: '操作権限がありません' if post.nil?
+      unless @post.user == current_user
+        redirect_to user_posts_path(@user.username), alert: '操作権限がありません'
+      end
     end
-  
+
     def post_processing_of(success)
       if success
         msg = { notice: '投稿しました。' }
