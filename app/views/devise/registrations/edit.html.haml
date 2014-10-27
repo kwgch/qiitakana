@@ -17,4 +17,4 @@
     = f.button :submit, "保存する", class: 'btn btn-success'
     = link_to "キャンセル", :back
 %p.text-right
-  #{link_to "Qiitakana?を退会する", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
+  = link_to "Qiitakana?を退会する", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete

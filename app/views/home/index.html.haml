@@ -1,10 +1,8 @@
 .container.feed-page
   .row
-    //.span8
     .col-lg-9
       .header{style:'padding-bottom: 10px;'}
-        //%h2 プログラミング知識を共有しよう。
-        %h2 Let's share the programming knowledge.
+        %h2 プログラミング知識を共有しよう。
         = link_to 'ノウハウ・Tipsを投稿する', new_user_post_path(current_user), class: 'btn btn-primary'
       .stream-container
         %nav
@@ -15,7 +13,7 @@
               = link_to 'すべての投稿', home_public_path
             %li.mine-tab.pull-right
               = link_to '自分の投稿', home_mine_path
-            %li.stock-tab.pull-right      
+            %li.stock-tab.pull-right
               = link_to 'ストック', 'javascript:alert("未実装")'
         .streams.feed-activities{id: 'item-content'}
           .following-stream.active
@@ -24,7 +22,6 @@
               .activities
                 = render 'shared/feed'
                 = will_paginate @feed_items
-    //.span3
     .col-lg-3
       .well.sidebar-nav{id: 'home-user_info'}
         .left
@@ -35,7 +32,7 @@
           .current_user
             %span.count= "#{current_user.posts.count}"
             %span.unit= " Contribution"
-            
+
 = hidden_field_tag 'tab_class', @tab_class, id: 'tab_class'
 :javascript
   $(function() {

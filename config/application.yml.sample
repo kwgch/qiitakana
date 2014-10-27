@@ -1,11 +1,5 @@
 development:
   github_app_id: eb16aa87521e5d7bee6c
   github_app_secret: 2fe5753ea37e1a5140d0c5a57432770ca17db4c8
-  twitter_consumer_key: 8QX2hmWDt2svKUWE5VPMgQ
-  twitter_consumer_secret: cYwejN1nUQbAjiBDvlNulWZsFG1EXu1u5qE8IpaIF4
-    
-production:
-  github_app_id: 9c4812248f95d1fd3376
-  github_app_secret: 63aaa6be196806e9d4ec2fca58a3c0bc07ead72f
-  twitter_consumer_key: 8QX2hmWDt2svKUWE5VPMgQ
-  twitter_consumer_secret: cYwejN1nUQbAjiBDvlNulWZsFG1EXu1u5qE8IpaIF
+  twitter_consumer_key: L4KStgy8urqZXK1uafEdNeDxG
+  twitter_consumer_secret: KzuQsDYYeR3XqRpuY2PZwyt9DQt5SexI3OMN2p6xZhuhgarZaL

@@ -17,3 +17,23 @@
   %p.text-right
     = f.button :submit, class: 'btn-primary'
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
+
+:javascript
+  $(function() {
+    return $("textarea#post_markdown").change(function() {
+      $.ajax({
+        url: "preview",
+        type: "POST",
+        data: {
+          markdown: $("textarea#post_markdown").val()
+        },
+        dataType: "html",
+        success: function(data) {
+          $(".bs-example").html(data);
+        },
+        error: function(data) {
+          alert("error");
+        }
+      });
+    });
+  });
