@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get 'public', to: 'home#public_feeds', as: :home_public
   get 'mine', to: 'home#mine', as: :home_mine
 
-  resources :relationships, only: [:create, :destroy]
-
   resources :tag_follows, only: [:create, :destroy]
 
   devise_for :users, controllers: { omniauth_callbacks: "auth" }
@@ -24,6 +22,7 @@ Rails.application.routes.draw do
       end
     end
     resource :profile, except: [:delete]
+    resource :relationship, only: [:create, :destroy]
     member do
       get :following, :followers, :following_tags
     end

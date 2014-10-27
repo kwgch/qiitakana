@@ -1,3 +1,2 @@
-= form_for(current_user.relationships.build(followed_id: @user.id), remote: true) do |f|
-  %div= f.hidden_field :followed_id
-  = f.submit "フォローする", class: "btn btn-success follow-btn js-user-follow-btn"
+= form_tag([@user, :relationship], remote: true) do
+  = submit_tag "フォローする", class: "btn btn-success follow-btn js-user-follow-btn"

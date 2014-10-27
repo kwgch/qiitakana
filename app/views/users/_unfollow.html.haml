@@ -1,2 +1,2 @@
-= form_for(current_user.relationships.find_by(followed_id: @user.id), html: { method: :delete }, remote: true) do |f|
-  = f.submit "フォロー中", class: "btn follow-btn js-user-follow-btn"
+= form_tag([@user, :relationship], html: { method: :delete }, remote: true) do
+  = submit_tag "フォロー中", class: "btn follow-btn js-user-follow-btn"
