@@ -28,5 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tags, only: [:show]
+  resources :tags, only: [:show] do
+    resources :tag_follow, only: [:create, :destroy]
+  end
 end
