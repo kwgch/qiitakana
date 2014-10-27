@@ -7,11 +7,11 @@ class HomeController < ApplicationController
 
   def public_feeds
     @feed_items = Post.all.paginate(page: params[:page])
-    render action: 'index'
+    render 'index'
   end
 
   def mine
     @feed_items = current_user.posts.paginate(page: params[:page])
-    render action: 'index'
+    render 'index'
   end
 end
