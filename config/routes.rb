@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   root 'home#index'
-#   get 'home/index'
   
   get 'public', to: 'home#public_feeds', as: :home_public
   get 'mine', to: 'home#mine', as: :home_mine
@@ -19,8 +18,6 @@ Rails.application.routes.draw do
   
   get 'users/:id', to: 'users#show', as: :user
   
-#   post 'users/:id/posts/preview', to: 'posts#preview'
-  
   resources :users, only: [] do
     post 'posts/preview', to: 'posts#preview'
     post 'posts/:id/preview', to: 'posts#preview'
@@ -32,7 +29,6 @@ Rails.application.routes.draw do
   end
   
   resources :tags, only: [:show]
-  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

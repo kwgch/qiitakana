@@ -5,10 +5,6 @@ class PostsController < ApplicationController
   before_action :set_user, without: [:preview]
   before_action :correct_user, only: [:update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  
-#   def index
-#     @posts = @user.posts.all
-#   end
 
   def show
     @post.comments.build
