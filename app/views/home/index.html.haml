@@ -7,11 +7,11 @@
       .stream-container
         %nav
           %ul.nav.nav-tabs
-            %li.index-tab
+            %li.index-tab{class: current_page?(root_path) ? "active" : ""}
               = link_to 'フィード', root_path
-            %li.public_feeds-tab
+            %li.public_feeds-tab{class: current_page?(home_public_path) ? "active" : ""}
               = link_to 'すべての投稿', home_public_path
-            %li.mine-tab.pull-right
+            %li.mine-tab.pull-right{class: current_page?(home_mine_path) ? "active" : ""}
               = link_to '自分の投稿', home_mine_path
             %li.stock-tab.pull-right
               = link_to 'ストック', 'javascript:alert("未実装")'
@@ -32,9 +32,3 @@
           .current_user
             %span.count= "#{current_user.posts.count}"
             %span.unit= " Contribution"
-
-= hidden_field_tag 'tab_class', @tab_class, id: 'tab_class'
-:javascript
-  $(function() {
-    $('.' + $('#tab_class').val()).addClass('active')
-  })

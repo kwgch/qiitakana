@@ -1,29 +1,17 @@
 class HomeController < ApplicationController
-  before_action :signed_in_user
-  before_action :set_tab_class
-  
+  before_action :authenticate_user!
+
   def index
-    paging current_user.feed
+    @feed_items = current_user.feed.paginate(page: params[:page])
   end
-  
+
   def public_feeds
-    paging Post.all
-    render action: 'index'
+    @feed_items = Post.all.paginate(page: params[:page])
+    render 'index'
   end
-  
+
   def mine
-    paging current_user.posts
-    render action: 'index'
+    @feed_items = current_user.posts.paginate(page: params[:page])
+    render 'index'
   end
-
-  private
-
-    def set_tab_class
-      @tab_class = "#{params[:action]}-tab"
-    end
-
-    def paging(q)
-      @feed_items = q.paginate(page: params[:page])
-    end
-  
 end
