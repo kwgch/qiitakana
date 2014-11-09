@@ -1,2 +1,2 @@
-= form_tag([@user, :relationship], html: { method: :delete }, remote: true) do
+= form_tag([@user, :relationship], method: :delete, remote: true) do
   = submit_tag "フォロー中", class: "btn follow-btn js-user-follow-btn"
