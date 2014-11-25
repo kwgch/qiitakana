@@ -26,6 +26,7 @@ gem 'annotate', '~> 2.6.5'
 gem 'tachikoma'
 gem 'coveralls', require: false
 gem 'newrelic_rpm'
+gem "nested_form"
 gem 'friendly_id' #TODO
 # gem 'counter_culture' #TODO
 

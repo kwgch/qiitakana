@@ -1,19 +1,22 @@
 - model_class = Post
-= simple_form_for [current_user, @post]  do |f|
+= simple_nested_form_for [current_user, @post]  do |f|
 
   %p
-    = f.input :title, label: false, placeholder: 'タイトル'
+    = f.text_field :title, label: false, placeholder: 'タイトル', class: "string optional form-control"
 
   .form-inline
-    = f.fields_for :tags, wrapper: "horizontal_form", html: { class: 'form-horizontal' } do |t|
-      - if t.options[:child_index] > 0 && t.options[:child_index].even?
-        = "</div><br><div class='form-inline'>".html_safe
-      = t.input :name, label: false, input_wrapper_html: { class: "col-xs-4" }, placeholder: 'タグ'
+    = f.fields_for :tags do |t|
+      .input-group{style: 'padding-bottom: 5px'}
+        = t.text_field :name, label: false, class: "col-xs-4 string optional form-control", placeholder: 'タグ'
+        .input-group-addon
+          = t.link_to_remove fa_icon('remove')
+    = f.link_to_add fa_icon('plus-circle', text: 'タグ追加', right: true), :tags
 
+  %br
   %p
-    = f.input :markdown, label: false, placeholder: 'Markdown', input_html: { rows: 10 }
+    = f.text_area :markdown, label: false, placeholder: 'Markdown',  rows: 10, class: "text optional form-control"
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
-  
+
   %p.text-right
     = f.button :submit, class: 'btn-primary'
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
