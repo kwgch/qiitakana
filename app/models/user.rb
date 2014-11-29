@@ -23,10 +23,10 @@
 
 class User < ActiveRecord::Base
   include Redcarpet
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, authentication_keys: [:login]
-  
+
   has_many :user_auth
   has_many :posts
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -37,18 +37,21 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower
   has_many :tag_follows, foreign_key: "user_id"
   has_many :tags, through: :tag_follows
-  
+
+  has_many :stocks, foreign_key: "user_id"
+  has_many :stock_posts, through: :stocks, class_name: "Post"
+
   has_one :profile
-  
+
 	before_save { self.email = email.downcase }
 
   after_create :create_user_auth
   after_create :create_profile
-  
+
   attr_accessor :login
-  
+
   validates :username, uniqueness: { case_sensitive: false }
-  
+
   # override
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -58,49 +61,61 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
-  
+
   def to_param
     username
   end
-  
+
   def create_user_auth
     return unless defined? session
     auth = session[:current_provider_data]
     return unless auth
     self.user_auth.build(uid: auth['uid'], provider: auth['provider'], user_id: self.id)
   end
-  
+
   def create_profile
     self.build_profile
   end
-  
+
   def feed
     Post.feed(self)
   end
-  
+
   def following?(other_user)
     relationships.find_by(followed_id: other_user.id)
   end
-  
+
   def follow!(other_user)
     relationships.create!(followed_id: other_user.id)
   end
-  
+
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
   end
-  
+
   # tag
   def tag_following?(tag)
     tag_follows.find_by(tag_id: tag.id)
   end
-  
+
   def tag_follow!(tag)
     tag_follows.create!(tag_id: tag.id)
   end
-  
+
   def tag_unfollow!(tag)
     tag_follows.find_by(tag_id: tag.id).destroy
   end
-    
+
+  # stock
+  def stock?(post)
+    stocks.find_by(post_id: post.id)
+  end
+
+  def stock!(post)
+    stocks.create!(post_id: post.id)
+  end
+
+  def unstock!(post)
+    stocks.find_by(post_id: post.id).destroy
+  end
 end

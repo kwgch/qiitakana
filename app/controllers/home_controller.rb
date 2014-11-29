@@ -14,4 +14,9 @@ class HomeController < ApplicationController
     @feed_items = current_user.posts.paginate(page: params[:page])
     render 'index'
   end
+
+  def stock
+    @feed_items = current_user.stock_posts.paginate(page: params[:page])
+    render 'index'
+  end
 end

@@ -51,9 +51,9 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      unless @post.user == current_user
-        redirect_to user_posts_path(@user.username), alert: '操作権限がありません'
-      end
+#       unless @post.user == current_user
+#         redirect_to user_post_path(@user.username, @post), alert: '操作権限がありません'
+#       end
     end
 
     def post_processing_of(success)
@@ -62,6 +62,10 @@ class PostsController < ApplicationController
       else
         msg = { alert: '投稿に失敗しました。' }
       end
-      redirect_to edit_user_post_path(current_user, @post), msg
+      if @post.user == current_user
+        redirect_to edit_user_post_path(current_user, @post), msg
+      else
+        redirect_to user_post_path(@post.user.username, @post)
+      end
     end
 end

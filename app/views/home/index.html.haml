@@ -13,8 +13,8 @@
               = link_to 'すべての投稿', home_public_path
             %li.mine-tab.pull-right{class: current_page?(home_mine_path) ? "active" : ""}
               = link_to '自分の投稿', home_mine_path
-            %li.stock-tab.pull-right
-              = link_to 'ストック', 'javascript:alert("未実装")'
+            %li.stock-tab.pull-right{class: current_page?(home_stock_path) ? "active" : ""}
+              = link_to 'ストック', home_stock_path
         .streams.feed-activities{id: 'item-content'}
           .following-stream.active
             %div

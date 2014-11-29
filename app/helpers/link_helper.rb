@@ -1,22 +1,21 @@
 module LinkHelper
-  
+
   def login_text(provider)
     fa_icon provider, text: "#{ provider.capitalize }で新規登録／ログイン"
   end
-  
+
   def signin_link_of(provider)
     link_to login_text(provider.to_s), user_omniauth_authorize_path(provider), class: "btn btn-default"
   end
-  
+
   def signout_link
     link_to fa_icon('sign-out', text: 'ログアウト'), destroy_user_session_path, method: 'delete'
   end
-  
+
   def account_config_link
     link_to fa_icon('cog', text: 'アカウント設定'), '/users/edit'
   end
-  
-  
+
   def profile_config_link
     link_to fa_icon('user', text: 'プロフィール設定'), 
       (current_user.profile.present? && current_user.profile.id.present? ?

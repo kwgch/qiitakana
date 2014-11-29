@@ -25,7 +25,7 @@
   $(function() {
     return $("textarea#post_markdown").change(function() {
       $.ajax({
-        url: "preview",
+        url: "/preview",
         type: "POST",
         data: {
           markdown: $("textarea#post_markdown").val()

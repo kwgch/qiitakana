@@ -1,0 +1,102 @@
+
+RelationshipsController
+  creating a relationship with Ajax
+    should increment the Relationshop count (FAILED - 1)
+    should respond with success (FAILED - 2)
+  destroying a relationship with Ajax
+    should decrement the Relationship count (FAILED - 3)
+    should respond with success (FAILED - 4)
+
+Failures:
+
+  1) RelationshipsController creating a relationship with Ajax should increment the Relationshop count
+     Failure/Error: xhr :post, user_relationship: { user_id: other_user.id }
+     ActionController::UrlGenerationError:
+       No route matches {:action=>"{:user_relationship=>{:user_id=>2}}", :controller=>"relationships"}
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/journey/formatter.rb:39:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:599:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:629:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:624:in `generate_extras'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:620:in `extra_keys'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:189:in `assign_parameters'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:582:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:64:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `block in process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `catch'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `_catch_warden'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:501:in `post'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:531:in `xml_http_request'
+     # ./spec/controllers/relationships_controller_spec.rb:17:in `block (4 levels) in <top (required)>'
+     # ./spec/controllers/relationships_controller_spec.rb:16:in `block (3 levels) in <top (required)>'
+
+  2) RelationshipsController creating a relationship with Ajax should respond with success
+     Failure/Error: xhr :post, user_relationship: { user_id: other_user.id }
+     ActionController::UrlGenerationError:
+       No route matches {:action=>"{:user_relationship=>{:user_id=>2}}", :controller=>"relationships"}
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/journey/formatter.rb:39:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:599:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:629:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:624:in `generate_extras'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:620:in `extra_keys'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:189:in `assign_parameters'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:582:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:64:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `block in process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `catch'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `_catch_warden'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:501:in `post'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:531:in `xml_http_request'
+     # ./spec/controllers/relationships_controller_spec.rb:22:in `block (3 levels) in <top (required)>'
+
+  3) RelationshipsController destroying a relationship with Ajax should decrement the Relationship count
+     Failure/Error: xhr :delete, :destroy, id: relationship.id
+     ActionController::UrlGenerationError:
+       No route matches {:action=>"destroy", :controller=>"relationships", :id=>"1"}
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/journey/formatter.rb:39:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:599:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:629:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:624:in `generate_extras'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:620:in `extra_keys'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:189:in `assign_parameters'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:582:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:64:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `block in process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `catch'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `_catch_warden'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:519:in `delete'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:531:in `xml_http_request'
+     # ./spec/controllers/relationships_controller_spec.rb:36:in `block (4 levels) in <top (required)>'
+     # ./spec/controllers/relationships_controller_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+  4) RelationshipsController destroying a relationship with Ajax should respond with success
+     Failure/Error: xhr :delete, :destroy, id: relationship.id
+     ActionController::UrlGenerationError:
+       No route matches {:action=>"destroy", :controller=>"relationships", :id=>"1"}
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/journey/formatter.rb:39:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:599:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:629:in `generate'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:624:in `generate_extras'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_dispatch/routing/route_set.rb:620:in `extra_keys'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:189:in `assign_parameters'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:582:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:64:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `block in process'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `catch'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:72:in `_catch_warden'
+     # /home/action/.gem/ruby/2.1.2/gems/devise-3.4.1/lib/devise/test_helpers.rb:19:in `process'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:519:in `delete'
+     # /home/action/.gem/ruby/2.1.2/gems/actionpack-4.1.5/lib/action_controller/test_case.rb:531:in `xml_http_request'
+     # ./spec/controllers/relationships_controller_spec.rb:41:in `block (3 levels) in <top (required)>'
+
+Finished in 0.55373 seconds (files took 15.23 seconds to load)
+4 examples, 4 failures
+
+Failed examples:
+
+rspec ./spec/controllers/relationships_controller_spec.rb:15 # RelationshipsController creating a relationship with Ajax should increment the Relationshop count
+rspec ./spec/controllers/relationships_controller_spec.rb:21 # RelationshipsController creating a relationship with Ajax should respond with success
+rspec ./spec/controllers/relationships_controller_spec.rb:34 # RelationshipsController destroying a relationship with Ajax should decrement the Relationship count
+rspec ./spec/controllers/relationships_controller_spec.rb:40 # RelationshipsController destroying a relationship with Ajax should respond with success

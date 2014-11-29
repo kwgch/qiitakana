@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'public', to: 'home#public_feeds', as: :home_public
   get 'mine', to: 'home#mine', as: :home_mine
+  get 'stock', to: 'home#stock', as: :home_stock
 
   resources :tag_follows, only: [:create, :destroy]
 
@@ -14,13 +15,10 @@ Rails.application.routes.draw do
     delete 'auth/destroy/:provider', to: 'auth#destroy', as: :destroy_connection
   end
 
+  post 'preview', to: 'posts#preview', as: :preview
+
   resources :users, only: [:show] do
-    post 'posts/:id/preview', to: 'posts#preview' # => 消したい
-    resources :posts, except: [:index] do
-      collection do
-        post 'preview'
-      end
-    end
+    resources :posts, except: [:index]
     resource :profile, except: [:delete]
     resource :relationship, only: [:create, :destroy]
     member do
@@ -30,5 +28,9 @@ Rails.application.routes.draw do
 
   resources :tags, only: [:show] do
     resources :tag_follow, only: [:create, :destroy]
+  end
+
+  resource :post, only: [] do
+    resources :stocks, only: [:create, :destroy]
   end
 end
