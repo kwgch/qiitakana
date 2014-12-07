@@ -20,3 +20,5 @@
 
 /repos/*
 !/repos/.gitkeep
+
+rspec.log

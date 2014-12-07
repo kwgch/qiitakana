@@ -6,6 +6,13 @@
     .navbar-header.navbar-right
       %ul.nav.navbar-nav
         -if user_signed_in?
+          %li.dropdown#menu2
+            %a.dropdown-toggle{href: '/', 'data-toggle' => 'dropdown'}
+              新規作成
+              %b.caret
+              %ul.dropdown-menu
+                %li= new_post_link
+                %li= drafts_link
           %li.dropdown#menu1
             %a.dropdown-toggle{href: '/', 'data-toggle' => 'dropdown'}
               = current_user.username

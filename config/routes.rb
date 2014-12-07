@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'public', to: 'home#public_feeds', as: :home_public
   get 'mine', to: 'home#mine', as: :home_mine
   get 'stock', to: 'home#stock', as: :home_stock
+  get 'drafts', to: 'posts#drafts', as: :drafts
 
   resources :tag_follows, only: [:create, :destroy]
 

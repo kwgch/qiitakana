@@ -19,6 +19,7 @@
 
   %p.text-right
     = f.button :submit, class: 'btn-primary'
+    = f.button :submit, '一時保存', class: 'btn-success', name: 'temporary'
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
 
 :javascript

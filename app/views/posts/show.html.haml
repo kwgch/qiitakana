@@ -10,25 +10,26 @@
         %p= link_to '投稿を編集', edit_user_post_path(current_user, @post), class: 'btn btn-default' if current_user.id == @post.user_id
         %p= user_link @post
       %p= @post.body.html_safe
-
-      %br
-      %br
-      コメントを投稿する
-      = simple_form_for [current_user, @post] do |f|
-        = f.fields_for :comments do |c|
-          - user = User.find c.object.created_by if c.object.created_by
-          %b= link_to user.username, user if user
-          .text-right= c.object.created_at
-          = c.input :body, label: false, input_html: { readonly: c.options[:child_index] != @post.comments.length-1 }
-        = f.button :submit, 'コメントを投稿する', class: 'btn-primary'
+      - unless @post.temporary
+        %br
+        %br
+        コメントを投稿する
+        = simple_form_for [current_user, @post] do |f|
+          = f.fields_for :comments do |c|
+            - user = User.find c.object.created_by if c.object.created_by
+            %b= link_to user.username, user if user
+            .text-right= c.object.created_at
+            = c.input :body, label: false, input_html: { readonly: c.options[:child_index] != @post.comments.length-1 }
+          = f.button :submit, 'コメントを投稿する', class: 'btn-primary'
     .col-lg-3{style: 'text-align: center;'}
-      .well.sidebar-nav
-        %span.itemsShowHeaderStock
-          = fa_icon 'folder-o'
-          %b#stocks= "#{@post.stocks.length}"
-          ストック ｜ 
-        %span.itemsShowHeaderStock_count
-          = fa_icon 'comment-o'
-          %b= "#{@post.comments.length-1}"
-          コメント
-        %p{style: 'text-align: center;'}= render 'stock_form'
+      - unless @post.temporary
+        .well.sidebar-nav
+          %span.itemsShowHeaderStock
+            = fa_icon 'folder-o'
+            %b#stocks= "#{@post.stocks.length}"
+            ストック ｜ 
+          %span.itemsShowHeaderStock_count
+            = fa_icon 'comment-o'
+            %b= "#{@post.comments.length-1}"
+            コメント
+          %p{style: 'text-align: center;'}= render 'stock_form'

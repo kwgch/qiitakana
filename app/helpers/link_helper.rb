@@ -50,4 +50,13 @@ module LinkHelper
     end
     link_to fa_icon(provider, text: txt), path, html_options
   end
+
+  def new_post_link
+    link_to '投稿する', new_user_post_path(current_user)
+  end
+
+  def drafts_link
+    link_to '下書き一覧', drafts_path
+  end
+
 end

@@ -6,6 +6,10 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:update, :destroy]
 
+  def drafts
+    @posts = current_user.posts.unscoped.drafts.paginate(page: params[:page])
+  end
+
   def show
     @post.comments.build
   end
@@ -21,10 +25,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    setTemporary
     post_processing_of @post.save(post_params)
   end
 
   def update
+    setTemporary
     post_processing_of @post.update(post_params)
   end
 
@@ -56,16 +62,22 @@ class PostsController < ApplicationController
 #       end
     end
 
-    def post_processing_of(success)
-      if success
-        msg = { notice: '投稿しました。' }
-      else
-        msg = { alert: '投稿に失敗しました。' }
-      end
-      if @post.user == current_user
-        redirect_to edit_user_post_path(current_user, @post), msg
-      else
-        redirect_to user_post_path(@post.user.username, @post)
-      end
+  def post_processing_of(success)
+    verb = params[:temporary] ? '一時保存' : '投稿'
+    if success
+      msg = { notice: "#{verb}しました。" }
+    else
+      msg = { alert: "#{verb}に失敗しました。" }
     end
+    if @post.user == current_user
+      redirect_to edit_user_post_path(current_user, @post), msg
+    else
+      redirect_to user_post_path(@post.user.username, @post)
+    end
+  end
+
+  def setTemporary
+    @post.temporary = params[:temporary] ? true : false
+  end
+
 end
