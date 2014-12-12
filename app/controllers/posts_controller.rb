@@ -4,7 +4,9 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :set_user, without: [:preview]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :build_post, only: [:create]
   before_action :correct_user, only: [:update, :destroy]
+  before_action :setAction, only: [:create, :update]
 
   def drafts
     @posts = current_user.posts.unscoped.drafts.paginate(page: params[:page])
@@ -24,14 +26,26 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    setTemporary
-    post_processing_of @post.save(post_params)
+    if @post.save(post_params)
+      msg = { notice: "#{@action}しました。" }
+    else
+      msg = { alert: "#{@action}に失敗しました。" }
+    end
+    redirect_to edit_user_post_path(current_user, @post), msg
   end
 
   def update
-    setTemporary
-    post_processing_of @post.update(post_params)
+    if @post.update(post_params)
+      msg = { notice: "#{@action}しました。" }
+    else
+      msg = { alert: "#{@action}に失敗しました。" }
+    end
+
+    if !params[:post][:comment]
+      redirect_to edit_user_post_path(current_user, @post), msg
+    else
+      redirect_to user_post_path(@post.user.username, @post), msg
+    end
   end
 
   def destroy
@@ -48,6 +62,10 @@ class PostsController < ApplicationController
       @post = Post.unscoped.includes(:tags).find(params[:id])
     end
 
+    def build_post
+      @post = current_user.posts.build(post_params)
+    end
+
     def set_user
       @user = User.find_first_by_auth_conditions(login: params[:user_id])
     end
@@ -62,22 +80,17 @@ class PostsController < ApplicationController
 #       end
     end
 
-  def post_processing_of(success)
-    verb = params[:temporary] ? '一時保存' : '投稿'
-    if success
-      msg = { notice: "#{verb}しました。" }
-    else
-      msg = { alert: "#{verb}に失敗しました。" }
+    def setAction
+      if params[:post][:temporary]
+        @post.temporary = true
+        @action = '一時保存'
+      else
+        @post.temporary = false
+        if params[:post][:comment]
+          @action = 'コメントを投稿'
+        else
+          @action = '投稿'
+        end
+      end
     end
-    if @post.user == current_user
-      redirect_to edit_user_post_path(current_user, @post), msg
-    else
-      redirect_to user_post_path(@post.user.username, @post)
-    end
-  end
-
-  def setTemporary
-    @post.temporary = params[:temporary] ? true : false
-  end
-
 end

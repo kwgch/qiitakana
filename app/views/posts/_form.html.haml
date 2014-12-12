@@ -17,9 +17,23 @@
     = f.text_area :markdown, label: false, placeholder: 'Markdown',  rows: 10, class: "text optional form-control"
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
 
-  %p.text-right
-    = f.button :submit, class: 'btn-primary'
-    = f.button :submit, '一時保存', class: 'btn-success', name: 'temporary'
+  .text-right
+    .btn-group#update{style: @post.temporary? ? 'display:none;' : ''}
+      = f.button :submit, class: 'btn-primary'
+      %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
+        %span.caret
+      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+        %li.btn.btn-success(onclick='$("#update").hide();$("#temporary").show();')
+          一時保存
+    .btn-group#temporary{style: @post.temporary? ? '' : 'display:none;'}
+      = f.button :submit, '一時保存', class: 'btn-success', name: 'post[temporary]'
+      %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
+        %span.caret
+      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+        %li{style: 'text-align: left;'}
+        %li.btn.btn-primary(onclick='$("#temporary").hide();$("#update").show();')
+          更新する
+
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
 
 :javascript
