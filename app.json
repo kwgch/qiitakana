@@ -2,5 +2,12 @@
   "name": "qiitakana",
   "description": "Qiitakana is an application to provide a SNS for other users to share the knowledge of each.",
   "repository": "https://github.com/kwgch/qiitakana",
-  "keywords": ["knowledge","sns"]
+  "keywords": ["knowledge","sns"],
+    "scripts": {
+    "postdeploy": "bundle exec rake db:migrate db:seed"
+  },
+  "env": {
+    "RAILS_ENV": "production",
+  },
+  "addons": ["heroku-postgresql"]
 }
