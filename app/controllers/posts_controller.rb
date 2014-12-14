@@ -12,6 +12,11 @@ class PostsController < ApplicationController
     @posts = current_user.posts.unscoped.drafts.paginate(page: params[:page])
   end
 
+  def posted
+    @posts = current_user.posts.unscoped.posted.paginate(page: params[:page])
+    render 'drafts'
+  end
+
   def show
     @post.comments.build
   end
@@ -85,6 +90,9 @@ class PostsController < ApplicationController
         @post.temporary = true
         @action = '一時保存'
       else
+        if @post.temporary
+          @post.posted_at = Time.zone.now
+        end
         @post.temporary = false
         if params[:post][:comment]
           @action = 'コメントを投稿'

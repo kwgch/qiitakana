@@ -20,9 +20,13 @@ class Post < ActiveRecord::Base
 
   self.per_page = 3
 
-  default_scope -> { where(temporary: false).includes(:user).includes(:tags).order('created_at DESC') }
+  default_scope -> { includes(:user).includes(:tags).order('created_at DESC') }
 
-  scope :drafts, -> { where(temporary: true).includes(:user).includes(:tags).order('created_at DESC') }
+  scope :usual, -> { where(temporary: false) }
+
+  scope :drafts, -> { where(temporary: true) }
+
+  scope :posted, -> { where(temporary: false).where('posted_at is not null') }
 
   has_many :comments
   has_many :taggings
