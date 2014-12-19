@@ -55,7 +55,19 @@
               %a{href: followers_user_path(@user)}
                 = "フォロワー #{@user.followers.count}"
 %section
-  - if @user.posts.any?
-    = render 'shared/feed'
-    = will_paginate @feed_items
-    
+  .container.feed-page
+    .row
+      .col-lg-9
+        .stream-container
+          %nav
+            %ul.nav.nav-tabs
+              %li.mine-tab{class: current_page?(user_path(@user)) ? "active" : ""}
+                = link_to current_user?(@user) ? '自分の投稿' : '最近の投稿', user_path(@user)
+              %li.stock-tab{class: current_page?(user_stocks_path(@user)) ? "active" : ""}
+                = link_to 'ストック', user_stocks_path(@user)
+              -if current_user?(@user)
+                %li.private-tab{class: current_page?(user_private_path(@user)) ? "active" : ""}
+                  = link_to '限定共有投稿', user_private_path(@user)
+          - if @user.posts.any?
+            = render 'shared/feed'
+            = will_paginate @feed_items

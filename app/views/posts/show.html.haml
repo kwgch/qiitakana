@@ -2,6 +2,10 @@
   .row
     .col-lg-9
       .jumbotron
+        - if @post.limited?
+          この投稿は
+          = fa_icon 'lock'
+          <b>限定共有</b>に設定されています。 <b>投稿者本人及びURLを知っているユーザーのみ</b>アクセスすることができます。
         %h1.itemsShowHeaderTitle_title= @post.title
         %p
           %ul.tags= tags_link @post
@@ -10,7 +14,7 @@
         %p= link_to '投稿を編集', edit_user_post_path(current_user, @post), class: 'btn btn-default' if current_user.id == @post.user_id
         %p= user_link @post
       %p= @post.body.html_safe
-      - unless @post.temporary
+      - unless @post.drafted?
         %br
         %br
         コメントを投稿する
@@ -22,7 +26,7 @@
             = c.input :body, label: false, input_html: { readonly: c.options[:child_index] != @post.comments.length-1 }
           = f.button :submit, 'コメントを投稿する', class: 'btn-primary', name: 'post[comment]'
     .col-lg-3{style: 'text-align: center;'}
-      - unless @post.temporary
+      - unless @post.drafted?
         .well.sidebar-nav
           %span.itemsShowHeaderStock
             = fa_icon 'folder-o'

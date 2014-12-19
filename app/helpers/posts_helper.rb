@@ -5,7 +5,7 @@ module PostsHelper
   end
   
   def user_link(post)
-    link_to(post.user.username, user_posts_path(post.user)) + "が#{ date_format post }に#{ post.temporary ? '下書き' : '投稿' }"
+    link_to(post.user.username, user_posts_path(post.user)) + "が#{ date_format post }に#{ post.drafted? ? '下書き' : '投稿' }"
   end
   
   def post_link(post)

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'stock', to: 'home#stock', as: :home_stock
   get 'drafts', to: 'posts#drafts', as: :drafts
   get 'posted', to: 'posts#posted', as: :posted
+  get 'limited', to: 'posts#limited', as: :limited
 
   resources :tag_follows, only: [:create, :destroy]
 
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   post 'preview', to: 'posts#preview', as: :preview
 
   resources :users, only: [:show] do
+    get 'stocks'
+    get 'private', to: 'users#limited'
     resources :posts, except: [:index]
     resource :profile, except: [:delete]
     resource :relationship, only: [:create, :destroy]

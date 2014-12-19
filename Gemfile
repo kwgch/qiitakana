@@ -29,6 +29,7 @@ gem 'newrelic_rpm'
 gem "nested_form"
 gem 'friendly_id' #TODO
 # gem 'counter_culture' #TODO
+gem 'aasm'
 
 group :development, :test do
   gem 'sqlite3'

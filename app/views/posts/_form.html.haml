@@ -18,25 +18,49 @@
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
 
   .text-right
-    .btn-group#update{style: @post.temporary? ? 'display:none;' : ''}
+    .btn-group#publish{style: @post.published? ? '' : 'display:none;'}
       = f.button :submit, class: 'btn-primary'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
       %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
-        %li.btn.btn-success(onclick='$("#update").hide();$("#temporary").show();')
+        %li.btn.btn-success(onclick='selectDraft();')
           一時保存
-    .btn-group#temporary{style: @post.temporary? ? '' : 'display:none;'}
-      = f.button :submit, '一時保存', class: 'btn-success', name: 'post[temporary]'
+    .btn-group#draft{style: @post.drafted? ? '' : 'display:none;'}
+      = f.button :submit, '一時保存', class: 'btn-success', name: 'post[draft]'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
       %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
-        %li{style: 'text-align: left;'}
-        %li.btn.btn-primary(onclick='$("#temporary").hide();$("#update").show();')
+        %li.btn.btn-primary(onclick='selectPublish();')
           更新する
+        %li.btn.btn-primary(onclick='selectLimit();')
+          限定共有投稿
+    .btn-group#limit{style: @post.limited? ? '' : 'display:none;'}
+      = f.button :submit, '限定共有投稿', class: 'btn-success', name: 'post[limit]'
+      %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
+        %span.caret
+      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+        %li.btn.btn-primary(onclick='selectPublish();')
+          更新する
+        %li.btn.btn-success(onclick='selectDraft();')
+          一時保存
 
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
 
 :javascript
+  function selectPublish(){
+    showBtn(true, false, false);
+  }
+  function selectDraft(){
+    showBtn(false, true, false);
+  }
+  function selectLimit(){
+    showBtn(false, false, true);
+  }
+  function showBtn(publish, draft, limit){
+    publish ? $("#publish").show() : $("#publish").hide();
+    draft ? $("#draft").show() : $("#draft").hide();
+    limit ? $("#limit").show() : $("#limit").hide();
+  }
   $(function() {
     return $("textarea#post_markdown").change(function() {
       $.ajax({

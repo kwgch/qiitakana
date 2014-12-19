@@ -7,13 +7,14 @@ class PostsController < ApplicationController
   before_action :build_post, only: [:create]
   before_action :correct_user, only: [:update, :destroy]
   before_action :setAction, only: [:create, :update]
+  before_action :setState, only: [:create, :update]
 
   def drafts
-    @posts = current_user.posts.unscoped.drafts.paginate(page: params[:page])
+    @posts = current_user.posts.drafted.listing.paginate(page: params[:page])
   end
 
   def posted
-    @posts = current_user.posts.unscoped.posted.paginate(page: params[:page])
+    @posts = current_user.posts.published.posted.listing.paginate(page: params[:page])
     render 'drafts'
   end
 
@@ -45,7 +46,6 @@ class PostsController < ApplicationController
     else
       msg = { alert: "#{@action}に失敗しました。" }
     end
-
     if !params[:post][:comment]
       redirect_to edit_user_post_path(current_user, @post), msg
     else
@@ -86,19 +86,18 @@ class PostsController < ApplicationController
     end
 
     def setAction
-      if params[:post][:temporary]
-        @post.temporary = true
+      @action = '投稿'
+      if params[:post][:draft]
         @action = '一時保存'
-      else
-        if @post.temporary
-          @post.posted_at = Time.zone.now
-        end
-        @post.temporary = false
-        if params[:post][:comment]
-          @action = 'コメントを投稿'
-        else
-          @action = '投稿'
-        end
+      elsif params[:post][:limit]
+        @action = '限定投稿'
+      elsif params[:post][:comment]
+        @action = 'コメントを投稿'
       end
     end
+
+    def setState
+      @post.setState(params[:post])
+    end
+
 end

@@ -17,16 +17,39 @@
 #
 
 class Post < ActiveRecord::Base
+  include AASM
+
+  enum state: {
+    published: 1,
+    drafted: 2,
+    limited: 3
+  }
+
+  aasm column: :state, enum: true do
+    state :published, initial: true
+    state :drafted
+    state :limited
+
+    event :publish do
+      transitions from: :drafted, to: :published
+      before do
+        self.posted_at = Time.zone.now if self.drafted?
+      end
+    end
+
+    event :draft do
+      transitions from: [:published, :limited], to: :drafted
+    end
+
+    event :limit do
+      transitions from: :drafted, to: :limited
+    end
+  end
 
   self.per_page = 3
 
-  default_scope -> { includes(:user).includes(:tags).order('created_at DESC') }
-
-  scope :usual, -> { where(temporary: false) }
-
-  scope :drafts, -> { where(temporary: true) }
-
-  scope :posted, -> { where(temporary: false).where('posted_at is not null') }
+  scope :listing, -> { includes(:user).includes(:tags).order('posts.created_at DESC') }
+  scope :posted, -> { where('posted_at is not null') }
 
   has_many :comments
   has_many :taggings
@@ -63,6 +86,16 @@ class Post < ActiveRecord::Base
       self.unscoped.from_users_followed_by(user),
       self.unscoped.from_tags_followed_by(user)
     ).order('created_at DESC')
+  end
+
+  def setState(param_post)
+    if param_post[:draft]
+      self.draft unless self.drafted?
+    elsif param_post[:limit]
+      self.limit unless self.limited?
+    elsif !param_post[:comment]
+      self.publish unless self.published?
+    end
   end
 
   private
