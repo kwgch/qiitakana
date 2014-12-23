@@ -1,4 +1,8 @@
 ja:
+  drafted: 一時保存
+  limited: 限定共有投稿
+  published: 投稿
+  comment: コメント投稿
   date:
     abbr_day_names:
     - 日

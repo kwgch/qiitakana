@@ -6,8 +6,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :build_post, only: [:create]
   before_action :correct_user, only: [:update, :destroy]
-  before_action :setAction, only: [:create, :update]
-  before_action :setState, only: [:create, :update]
+  before_action :set_state, only: [:create, :update]
 
   def drafts
     @posts = current_user.posts.drafted.listing.paginate(page: params[:page])
@@ -33,18 +32,18 @@ class PostsController < ApplicationController
 
   def create
     if @post.save(post_params)
-      msg = { notice: "#{@action}しました。" }
+      msg = { notice: "#{t @post.state_text}しました。" }
     else
-      msg = { alert: "#{@action}に失敗しました。" }
+      msg = { alert: "#{t @post.state_text}に失敗しました。" }
     end
     redirect_to edit_user_post_path(current_user, @post), msg
   end
 
   def update
     if @post.update(post_params)
-      msg = { notice: "#{@action}しました。" }
+      msg = { notice: "#{t @post.state_text}しました。" }
     else
-      msg = { alert: "#{@action}に失敗しました。" }
+      msg = { alert: "#{t @post.state_text}に失敗しました。" }
     end
     if !params[:post][:comment]
       redirect_to edit_user_post_path(current_user, @post), msg
@@ -85,19 +84,8 @@ class PostsController < ApplicationController
 #       end
     end
 
-    def setAction
-      @action = '投稿'
-      if params[:post][:draft]
-        @action = '一時保存'
-      elsif params[:post][:limit]
-        @action = '限定投稿'
-      elsif params[:post][:comment]
-        @action = 'コメントを投稿'
-      end
-    end
-
-    def setState
-      @post.setState(params[:post])
+    def set_state
+      @post.set_state(params[:post])
     end
 
 end

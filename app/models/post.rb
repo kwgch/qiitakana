@@ -32,9 +32,7 @@ class Post < ActiveRecord::Base
 
     event :publish do
       transitions from: :drafted, to: :published
-      before do
-        self.posted_at = Time.zone.now if self.drafted?
-      end
+      before { self.posted_at = Time.zone.now if self.drafted? }
     end
 
     event :draft do
@@ -83,19 +81,26 @@ class Post < ActiveRecord::Base
 
   def self.feed(user)
     self.union(
-      self.unscoped.from_users_followed_by(user),
-      self.unscoped.from_tags_followed_by(user)
+      self.from_users_followed_by(user),
+      self.from_tags_followed_by(user)
     ).order('created_at DESC')
   end
 
-  def setState(param_post)
+  def set_state(param_post)
     if param_post[:draft]
       self.draft unless self.drafted?
     elsif param_post[:limit]
       self.limit unless self.limited?
-    elsif !param_post[:comment]
+    else
       self.publish unless self.published?
     end
+    if param_post[:comment]
+      @state_text = :comment
+    end
+  end
+
+  def state_text
+    @state_text || self.state
   end
 
   private
