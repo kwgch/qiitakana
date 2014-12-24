@@ -6,7 +6,7 @@
 
   .form-inline
     = f.fields_for :tags do |t|
-      .input-group{style: 'padding-bottom: 5px'}
+      .input-group{class: 'padding_bottom'}
         = t.text_field :name, label: false, class: "col-xs-4 string optional form-control", placeholder: 'タグ'
         .input-group-addon
           = t.link_to_remove fa_icon('remove')
@@ -18,27 +18,27 @@
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
 
   .text-right
-    .btn-group#publish{style: @post.published? ? '' : 'display:none;'}
+    .btn-group#publish{class: @post.published? ? '' : 'hide'}
       = f.button :submit, class: 'btn-primary'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
-      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+      %ul.dropdown-menu.dropdown_left{role: 'menu'}
         %li.btn.btn-success(onclick='selectDraft();')
           一時保存
-    .btn-group#draft{style: @post.drafted? ? '' : 'display:none;'}
+    .btn-group#draft{class: @post.drafted? ? '' : 'hide'}
       = f.button :submit, '一時保存', class: 'btn-success', name: 'post[draft]'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
-      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+      %ul.dropdown-menu.dropdown_left{role: 'menu'}
         %li.btn.btn-primary(onclick='selectPublish();')
           更新する
         %li.btn.btn-primary(onclick='selectLimit();')
           限定共有投稿
-    .btn-group#limit{style: @post.limited? ? '' : 'display:none;'}
+    .btn-group#limit{class: @post.limited? ? '' : 'hide'}
       = f.button :submit, '限定共有投稿', class: 'btn-success', name: 'post[limit]'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
-      %ul.dropdown-menu{role: 'menu', style: 'text-align: left;'}
+      %ul.dropdown-menu.dropdown_left{role: 'menu'}
         %li.btn.btn-primary(onclick='selectPublish();')
           更新する
         %li.btn.btn-success(onclick='selectDraft();')
@@ -57,9 +57,9 @@
     showBtn(false, false, true);
   }
   function showBtn(publish, draft, limit){
-    publish ? $("#publish").show() : $("#publish").hide();
-    draft ? $("#draft").show() : $("#draft").hide();
-    limit ? $("#limit").show() : $("#limit").hide();
+    publish ? $("#publish").removeClass('hide') : $("#publish").addClass('hide');
+    draft ? $("#draft").removeClass('hide') : $("#draft").addClass('hide');
+    limit ? $("#limit").removeClass('hide') : $("#limit").addClass('hide');
   }
   $(function() {
     return $("textarea#post_markdown").change(function() {
