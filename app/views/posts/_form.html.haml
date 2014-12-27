@@ -23,59 +23,25 @@
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
       %ul.dropdown-menu.dropdown_left{role: 'menu'}
-        %li.btn.btn-success(onclick='selectDraft();')
+        %li.btn.btn-success.dropdown_draft
           一時保存
     .btn-group#draft{class: @post.drafted? ? '' : 'hide'}
       = f.button :submit, '一時保存', class: 'btn-success', name: 'post[draft]'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
       %ul.dropdown-menu.dropdown_left{role: 'menu'}
-        %li.btn.btn-primary(onclick='selectPublish();')
+        %li.btn.btn-primary.dropdown_publish
           更新する
-        %li.btn.btn-primary(onclick='selectLimit();')
+        %li.btn.btn-primary.dropdown_limit
           限定共有投稿
     .btn-group#limit{class: @post.limited? ? '' : 'hide'}
       = f.button :submit, '限定共有投稿', class: 'btn-success', name: 'post[limit]'
       %button.btn.dropdown-toggle{'type'=>'button', 'data-toggle'=>'dropdown'}
         %span.caret
       %ul.dropdown-menu.dropdown_left{role: 'menu'}
-        %li.btn.btn-primary(onclick='selectPublish();')
+        %li.btn.btn-primary.dropdown_publish
           更新する
-        %li.btn.btn-success(onclick='selectDraft();')
+        %li.btn.btn-success.dropdown_draft
           一時保存
 
     = link_to t('.cancel', default: t('helpers.links.cancel')), user_posts_path, class: 'btn btn-default'
-
-:javascript
-  function selectPublish(){
-    showBtn(true, false, false);
-  }
-  function selectDraft(){
-    showBtn(false, true, false);
-  }
-  function selectLimit(){
-    showBtn(false, false, true);
-  }
-  function showBtn(publish, draft, limit){
-    publish ? $("#publish").removeClass('hide') : $("#publish").addClass('hide');
-    draft ? $("#draft").removeClass('hide') : $("#draft").addClass('hide');
-    limit ? $("#limit").removeClass('hide') : $("#limit").addClass('hide');
-  }
-  $(function() {
-    return $("textarea#post_markdown").change(function() {
-      $.ajax({
-        url: "/preview",
-        type: "POST",
-        data: {
-          markdown: $("textarea#post_markdown").val()
-        },
-        dataType: "html",
-        success: function(data) {
-          $(".bs-example").html(data);
-        },
-        error: function(data) {
-          alert("error");
-        }
-      });
-    });
-  });

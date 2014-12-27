@@ -30,6 +30,7 @@ gem "nested_form"
 gem 'friendly_id' #TODO
 # gem 'counter_culture' #TODO
 gem 'aasm'
+gem 'jquery-turbolinks'
 
 group :development, :test do
   gem 'sqlite3'
