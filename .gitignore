@@ -22,3 +22,5 @@
 !/repos/.gitkeep
 
 rspec.log
+
+public/uploads/tmp

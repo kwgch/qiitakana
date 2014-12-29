@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219165603) do
+ActiveRecord::Schema.define(version: 20141229063408) do
 
   create_table "comments", force: true do |t|
     t.integer  "post_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20141219165603) do
     t.boolean  "deleted"
     t.datetime "posted_at"
     t.integer  "state"
+    t.string   "image"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

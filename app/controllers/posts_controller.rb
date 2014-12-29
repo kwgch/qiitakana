@@ -75,13 +75,13 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :markdown, :body, tags_attributes: [:id, :name], comments_attributes: [:id, :post_id, :body])
+      params.require(:post).permit(:title, :markdown, :body, :image, tags_attributes: [:id, :name], comments_attributes: [:id, :post_id, :body])
     end
 
     def correct_user
-#       unless @post.user == current_user
-#         redirect_to user_post_path(@user.username, @post), alert: '操作権限がありません'
-#       end
+      if params[:post][:comment] && @post.user != current_user
+        redirect_to user_post_path(@user.username, @post), alert: '操作権限がありません'
+      end
     end
 
     def set_state

@@ -44,6 +44,8 @@ class Post < ActiveRecord::Base
     end
   end
 
+  mount_uploader :image, ImageUploader
+
   self.per_page = 3
 
   scope :listing, -> { includes(:user).includes(:tags).order('posts.created_at DESC') }

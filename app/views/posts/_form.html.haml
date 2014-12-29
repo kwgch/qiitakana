@@ -17,6 +17,8 @@
     = f.text_area :markdown, label: false, placeholder: 'Markdown',  rows: 10, class: "text optional form-control"
     .bs-example= @post.body.nil? ? 'preview' : @post.body.html_safe
 
+    = f.input :image, as: :image_preview, input_html: { preview_version: :thumb }, label: false
+
   .text-right
     .btn-group#publish{class: @post.published? ? '' : 'hide'}
       = f.button :submit, class: 'btn-primary'

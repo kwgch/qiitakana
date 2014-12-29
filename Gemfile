@@ -31,6 +31,9 @@ gem 'friendly_id' #TODO
 # gem 'counter_culture' #TODO
 gem 'aasm'
 gem 'jquery-turbolinks'
+gem 'carrierwave'
+gem 'rmagick', require: 'RMagick'
+gem 'fog'
 
 group :development, :test do
   gem 'sqlite3'
