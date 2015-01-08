@@ -1,30 +1,33 @@
 $(document).on "change", "textarea#post_markdown", ->
-    $.ajax
-      url: "/preview"
-      type: "POST"
-      data:
-        markdown: $("textarea#post_markdown").val()
+  $.ajax
+    url: "/preview"
+    type: "POST"
+    data:
+      markdown: $("textarea#post_markdown").val()
 
-      dataType: "html"
-      success: (data) ->
-        $(".bs-example").html data
-        return
+    dataType: "html"
+    success: (data) ->
+      $(".bs-example").html data
+      return
 
-      error: (data) ->
-        alert "error"
-        return
+    error: (data) ->
+      alert "error"
+      return
 
-    return
+  return
 
 selectPublish = ->
   showBtn true, false, false
   return
+
 selectDraft = ->
   showBtn false, true, false
   return
+
 selectLimit = ->
   showBtn false, false, true
   return
+
 showBtn = (publish, draft, limit) ->
   (if publish then $("#publish").removeClass("hide") else $("#publish").addClass("hide"))
   (if draft then $("#draft").removeClass("hide") else $("#draft").addClass("hide"))
@@ -32,8 +35,10 @@ showBtn = (publish, draft, limit) ->
   return
 
 $(document).on "click", ".dropdown_draft", ->
-    selectDraft()
+  selectDraft()
+
 $(document).on "click", ".dropdown_publish", ->
-    selectPublish()
+  selectPublish()
+
 $(document).on "click", ".dropdown_limit", ->
-    selectLimit()
+  selectLimit()
