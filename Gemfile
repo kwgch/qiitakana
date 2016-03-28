@@ -40,7 +40,7 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem "factory_girl_rails"
-  gem 'did_you_mean'
+  #gem 'did_you_mean'
   gem 'rails-flog', require: 'flog'
 end
 
